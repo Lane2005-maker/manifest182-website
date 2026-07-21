@@ -48,6 +48,7 @@
             font-weight: bold;
             color: var(--purple-pale);
             letter-spacing: 2px;
+            text-decoration: none;
         }
 
         .nav-links {
@@ -61,19 +62,24 @@
             text-decoration: none;
             font-size: 0.95rem;
             transition: color 0.2s;
+            padding-bottom: 4px;
+            border-bottom: 2px solid transparent;
         }
 
         .nav-links a:hover { color: var(--purple-pale); }
+        .nav-links a.active { color: var(--purple-pale); border-bottom-color: var(--purple-pale); }
 
         .nav-cta {
-            background: var(--purple);
+            background: var(--purple) !important;
             color: white !important;
             padding: 8px 20px;
             border-radius: 6px;
+            border-bottom: none !important;
             transition: background 0.2s !important;
         }
 
-        .nav-cta:hover { background: var(--purple-light) !important; color: white !important; }
+        .nav-cta:hover { background: var(--purple-light) !important; }
+        .nav-cta.active { border-bottom: none !important; }
 
         /* HERO */
         .hero {
@@ -149,6 +155,7 @@
             font-weight: bold;
             letter-spacing: 1px;
             transition: background 0.2s, transform 0.2s;
+            display: inline-block;
         }
 
         .btn-primary:hover {
@@ -166,6 +173,7 @@
             border: 1px solid var(--purple);
             letter-spacing: 1px;
             transition: background 0.2s, transform 0.2s;
+            display: inline-block;
         }
 
         .btn-secondary:hover {
@@ -181,21 +189,9 @@
             flex-wrap: wrap;
         }
 
-        .stat {
-            text-align: center;
-        }
-
-        .stat-number {
-            font-size: 2rem;
-            font-weight: bold;
-            color: var(--purple-pale);
-        }
-
-        .stat-label {
-            font-size: 0.85rem;
-            color: var(--muted);
-            letter-spacing: 1px;
-        }
+        .stat { text-align: center; }
+        .stat-number { font-size: 2rem; font-weight: bold; color: var(--purple-pale); }
+        .stat-label { font-size: 0.85rem; color: var(--muted); letter-spacing: 1px; }
 
         /* SECTIONS */
         section {
@@ -224,6 +220,18 @@
             font-size: 1.05rem;
             max-width: 600px;
             margin-bottom: 48px;
+        }
+
+        /* FADE IN ANIMATION */
+        .fade-in {
+            opacity: 0;
+            transform: translateY(30px);
+            transition: opacity 0.6s ease, transform 0.6s ease;
+        }
+
+        .fade-in.visible {
+            opacity: 1;
+            transform: translateY(0);
         }
 
         /* FEATURES */
@@ -255,12 +263,7 @@
             align-items: center;
             justify-content: center;
             margin-bottom: 16px;
-        }
-
-        .feature-icon svg {
-            width: 24px;
-            height: 24px;
-            stroke: var(--purple-pale);
+            font-size: 1.5rem;
         }
 
         .feature-title {
@@ -276,12 +279,59 @@
             line-height: 1.6;
         }
 
+        /* COMPARISON TABLE */
+        .comparison-table {
+            width: 100%;
+            border-collapse: collapse;
+            font-size: 0.95rem;
+        }
+
+        .comparison-table th {
+            padding: 14px 20px;
+            text-align: center;
+            font-weight: bold;
+            font-size: 0.9rem;
+            letter-spacing: 1px;
+        }
+
+        .comparison-table th:first-child { text-align: left; }
+
+        .comparison-table td {
+            padding: 14px 20px;
+            border-bottom: 1px solid #1a1a3a;
+            text-align: center;
+            color: var(--muted);
+        }
+
+        .comparison-table td:first-child {
+            text-align: left;
+            color: var(--text);
+        }
+
+        .comparison-table tr:last-child td { border-bottom: none; }
+        .comparison-table tr:hover td { background: rgba(81,40,136,0.05); }
+
+        .check { color: #2ecc71; font-size: 1.1rem; }
+        .cross { color: #e74c3c; font-size: 1.1rem; }
+        .partial { color: #f39c12; font-size: 1.1rem; }
+
+        .col-manifest {
+            background: rgba(81,40,136,0.1);
+            border-left: 1px solid var(--purple);
+            border-right: 1px solid var(--purple);
+        }
+
+        .col-manifest-header {
+            background: var(--purple);
+            color: white !important;
+            border-radius: 8px 8px 0 0;
+        }
+
         /* HOW IT WORKS */
         .steps {
             display: grid;
             grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
             gap: 24px;
-            counter-reset: steps;
         }
 
         .step {
@@ -289,7 +339,6 @@
             border-radius: 12px;
             padding: 28px;
             border: 1px solid #1a1a3a;
-            position: relative;
         }
 
         .step-number {
@@ -306,17 +355,46 @@
             color: white;
         }
 
-        .step-title {
-            font-size: 1rem;
-            font-weight: bold;
-            color: white;
-            margin-bottom: 8px;
+        .step-title { font-size: 1rem; font-weight: bold; color: white; margin-bottom: 8px; }
+        .step-desc { color: var(--muted); font-size: 0.9rem; }
+
+        /* ABOUT */
+        .about-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 48px;
+            align-items: center;
         }
 
-        .step-desc {
+        .about-text p {
             color: var(--muted);
-            font-size: 0.9rem;
+            margin-bottom: 16px;
+            font-size: 1rem;
+            line-height: 1.7;
         }
+
+        .about-stats {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 16px;
+        }
+
+        .about-stat {
+            background: var(--dark2);
+            border-radius: 10px;
+            padding: 20px;
+            border: 1px solid #1a1a3a;
+            text-align: center;
+        }
+
+        .about-stat-number {
+            font-size: 2rem;
+            font-weight: bold;
+            color: var(--purple-pale);
+            margin-bottom: 4px;
+        }
+
+        .about-stat-label { font-size: 0.82rem; color: var(--muted); }
 
         /* MONEY FLOW */
         .money-section {
@@ -344,24 +422,103 @@
         .money-card.blue { border-left-color: #3498db; }
         .money-card.orange { border-left-color: #f39c12; }
 
-        .money-title {
-            font-size: 0.9rem;
+        .money-title { font-size: 0.9rem; font-weight: bold; color: white; margin-bottom: 6px; }
+        .money-desc { font-size: 0.82rem; color: var(--muted); line-height: 1.5; }
+
+        /* FAQ */
+        .faq-list { display: flex; flex-direction: column; gap: 16px; }
+
+        .faq-item {
+            background: var(--dark2);
+            border-radius: 10px;
+            border: 1px solid #1a1a3a;
+            overflow: hidden;
+        }
+
+        .faq-question {
+            padding: 20px 24px;
+            cursor: pointer;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            color: white;
+            font-weight: bold;
+            font-size: 1rem;
+            transition: background 0.2s;
+        }
+
+        .faq-question:hover { background: rgba(81,40,136,0.1); }
+
+        .faq-question .arrow {
+            color: var(--purple-pale);
+            font-size: 1.2rem;
+            transition: transform 0.3s;
+            flex-shrink: 0;
+        }
+
+        .faq-item.open .arrow { transform: rotate(180deg); }
+
+        .faq-answer {
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.3s ease;
+        }
+
+        .faq-item.open .faq-answer { max-height: 300px; }
+
+        .faq-answer-inner {
+            padding: 0 24px 20px;
+            color: var(--muted);
+            font-size: 0.95rem;
+            line-height: 1.7;
+        }
+
+        /* TESTIMONIALS */
+        .testimonials-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 24px;
+        }
+
+        .testimonial-card {
+            background: var(--dark2);
+            border-radius: 12px;
+            padding: 28px;
+            border: 1px solid #1a1a3a;
+            border-top: 3px solid var(--purple);
+        }
+
+        .testimonial-text {
+            color: var(--muted);
+            font-size: 0.95rem;
+            line-height: 1.7;
+            margin-bottom: 20px;
+            font-style: italic;
+        }
+
+        .testimonial-author {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .testimonial-avatar {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            background: var(--purple);
+            display: flex;
+            align-items: center;
+            justify-content: center;
             font-weight: bold;
             color: white;
-            margin-bottom: 6px;
+            font-size: 0.9rem;
         }
 
-        .money-desc {
-            font-size: 0.82rem;
-            color: var(--muted);
-            line-height: 1.5;
-        }
+        .testimonial-name { color: white; font-weight: bold; font-size: 0.9rem; }
+        .testimonial-role { color: var(--muted); font-size: 0.8rem; }
 
         /* PRICING */
-        #pricing {
-            max-width: 1100px;
-        }
-
         .pricing-grid {
             display: grid;
             grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
@@ -395,12 +552,7 @@
             margin-bottom: 16px;
         }
 
-        .pricing-name {
-            font-size: 1.2rem;
-            font-weight: bold;
-            color: white;
-            margin-bottom: 8px;
-        }
+        .pricing-name { font-size: 1.2rem; font-weight: bold; color: white; margin-bottom: 8px; }
 
         .pricing-price {
             font-size: 3rem;
@@ -409,23 +561,10 @@
             margin-bottom: 4px;
         }
 
-        .pricing-price span {
-            font-size: 1rem;
-            color: var(--muted);
-            font-weight: normal;
-        }
+        .pricing-price span { font-size: 1rem; color: var(--muted); font-weight: normal; }
+        .pricing-desc { color: var(--muted); font-size: 0.9rem; margin-bottom: 28px; }
 
-        .pricing-desc {
-            color: var(--muted);
-            font-size: 0.9rem;
-            margin-bottom: 28px;
-        }
-
-        .pricing-features {
-            list-style: none;
-            text-align: left;
-            margin-bottom: 32px;
-        }
+        .pricing-features { list-style: none; text-align: left; margin-bottom: 32px; }
 
         .pricing-features li {
             color: var(--muted);
@@ -437,82 +576,167 @@
             gap: 10px;
         }
 
-        .pricing-features li::before {
-            content: '✓';
-            color: #2ecc71;
-            font-weight: bold;
-            flex-shrink: 0;
-        }
-
+        .pricing-features li::before { content: '✓'; color: #2ecc71; font-weight: bold; flex-shrink: 0; }
         .pricing-features li:last-child { border-bottom: none; }
 
         /* CONTACT */
-        .contact-section {
+        .contact-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 48px;
+            align-items: start;
+        }
+
+        .contact-info h3 { color: white; font-size: 1.3rem; margin-bottom: 16px; }
+        .contact-info p { color: var(--muted); margin-bottom: 24px; line-height: 1.7; }
+
+        .contact-detail {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            margin-bottom: 16px;
+            color: var(--muted);
+            font-size: 0.95rem;
+        }
+
+        .contact-detail-icon {
+            width: 36px;
+            height: 36px;
+            background: rgba(81,40,136,0.2);
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1rem;
+            flex-shrink: 0;
+        }
+
+        .contact-form {
             background: var(--dark2);
             border-radius: 16px;
-            padding: 48px;
+            padding: 32px;
             border: 1px solid #1a1a3a;
-            text-align: center;
         }
 
-        .contact-section h2 {
-            font-size: 2rem;
-            color: white;
-            margin-bottom: 16px;
-        }
+        .form-group { margin-bottom: 20px; }
 
-        .contact-section p {
+        .form-group label {
+            display: block;
             color: var(--muted);
-            margin-bottom: 32px;
-            max-width: 500px;
-            margin-left: auto;
-            margin-right: auto;
+            font-size: 0.85rem;
+            margin-bottom: 6px;
+            letter-spacing: 1px;
         }
 
-        .contact-email {
-            font-size: 1.3rem;
-            color: var(--purple-pale);
-            text-decoration: none;
-            border-bottom: 1px solid var(--purple);
-            padding-bottom: 2px;
-            transition: color 0.2s;
+        .form-group input,
+        .form-group textarea,
+        .form-group select {
+            width: 100%;
+            padding: 10px 14px;
+            background: #1a1a3a;
+            border: 1px solid #2a2a4a;
+            border-radius: 6px;
+            color: white;
+            font-size: 0.95rem;
+            font-family: Arial, sans-serif;
+            transition: border-color 0.2s;
         }
 
-        .contact-email:hover { color: white; }
+        .form-group input:focus,
+        .form-group textarea:focus,
+        .form-group select:focus {
+            outline: none;
+            border-color: var(--purple);
+        }
+
+        .form-group textarea { resize: vertical; min-height: 120px; }
+
+        .form-submit {
+            width: 100%;
+            padding: 14px;
+            background: var(--purple);
+            color: white;
+            border: none;
+            border-radius: 8px;
+            font-size: 1rem;
+            font-weight: bold;
+            cursor: pointer;
+            letter-spacing: 1px;
+            transition: background 0.2s;
+        }
+
+        .form-submit:hover { background: var(--purple-light); }
+
+        .form-success {
+            display: none;
+            text-align: center;
+            padding: 24px;
+            color: #2ecc71;
+            font-size: 1rem;
+        }
 
         /* FOOTER */
         footer {
             background: var(--dark2);
             border-top: 1px solid #1a1a3a;
-            padding: 32px 40px;
-            text-align: center;
-            color: var(--muted);
-            font-size: 0.85rem;
+            padding: 48px 40px 32px;
+        }
+
+        .footer-grid {
+            display: grid;
+            grid-template-columns: 2fr 1fr 1fr;
+            gap: 48px;
+            max-width: 1100px;
+            margin: 0 auto 32px;
         }
 
         .footer-brand {
-            font-size: 1.1rem;
+            font-size: 1.2rem;
             font-weight: bold;
             color: var(--purple-pale);
             letter-spacing: 2px;
-            margin-bottom: 8px;
+            margin-bottom: 12px;
         }
 
-        /* DIVIDER */
-        .divider {
-            border: none;
-            border-top: 1px solid #1a1a3a;
-            margin: 0;
+        .footer-desc { color: var(--muted); font-size: 0.88rem; line-height: 1.6; }
+
+        .footer-col h4 { color: white; font-size: 0.9rem; letter-spacing: 1px; margin-bottom: 16px; }
+
+        .footer-col ul { list-style: none; }
+
+        .footer-col ul li { margin-bottom: 8px; }
+
+        .footer-col ul li a {
+            color: var(--muted);
+            text-decoration: none;
+            font-size: 0.88rem;
+            transition: color 0.2s;
         }
+
+        .footer-col ul li a:hover { color: var(--purple-pale); }
+
+        .footer-bottom {
+            text-align: center;
+            padding-top: 24px;
+            border-top: 1px solid #1a1a3a;
+            color: var(--muted);
+            font-size: 0.82rem;
+            max-width: 1100px;
+            margin: 0 auto;
+        }
+
+        .divider { border: none; border-top: 1px solid #1a1a3a; margin: 0; }
 
         /* RESPONSIVE */
-        @media (max-width: 600px) {
+        @media (max-width: 768px) {
             nav { padding: 0 20px; }
             .nav-links { display: none; }
             section { padding: 60px 20px; }
             .hero { padding: 100px 20px 60px; }
+            .about-grid { grid-template-columns: 1fr; }
+            .contact-grid { grid-template-columns: 1fr; }
+            .footer-grid { grid-template-columns: 1fr; gap: 32px; }
             .money-section { padding: 28px; }
-            .contact-section { padding: 32px 20px; }
         }
     </style>
 </head>
@@ -520,11 +744,13 @@
 
 <!-- NAV -->
 <nav>
-    <div class="nav-brand">MANIFEST 182</div>
+    <a href="#" class="nav-brand">MANIFEST 182</a>
     <ul class="nav-links">
         <li><a href="#features">Features</a></li>
+        <li><a href="#comparison">Why Us</a></li>
         <li><a href="#how-it-works">How It Works</a></li>
-        <li><a href="#money">Pay Tracking</a></li>
+        <li><a href="#about">About</a></li>
+        <li><a href="#faq">FAQ</a></li>
         <li><a href="#pricing">Pricing</a></li>
         <li><a href="#contact" class="nav-cta">Get in Touch</a></li>
     </ul>
@@ -570,357 +796,156 @@
 
 <!-- FEATURES -->
 <section id="features">
-    <div class="section-label">Features</div>
-    <h2 class="section-title">Everything your DZ needs</h2>
-    <p class="section-desc">
-        Built from the ground up for how parachute clubs actually operate.
-        Every feature was designed with real jump day workflow in mind.
-    </p>
+    <div class="fade-in">
+        <div class="section-label">Features</div>
+        <h2 class="section-title">Everything your DZ needs</h2>
+        <p class="section-desc">Built from the ground up for how parachute clubs actually operate.</p>
+    </div>
 
     <div class="features-grid">
-
-        <div class="feature-card">
-            <div class="feature-icon">
-                <svg viewBox="0 0 24 24" fill="none" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
-                    <rect x="3" y="4" width="18" height="16" rx="2"/>
-                    <line x1="3" y1="9" x2="21" y2="9"/>
-                    <line x1="9" y1="4" x2="9" y2="9"/>
-                </svg>
-            </div>
+        <div class="feature-card fade-in">
+            <div class="feature-icon">📋</div>
             <div class="feature-title">Live Load Board</div>
-            <div class="feature-desc">
-                Create loads, assign pilots, add jumpers, and track status
-                from Building through Landed. Reorder loads on the fly for
-                wind holds or instructor scheduling.
-            </div>
+            <div class="feature-desc">Create loads, assign pilots, add jumpers, and track status from Building through Landed. Reorder loads on the fly for wind holds or instructor scheduling.</div>
         </div>
-
-        <div class="feature-card">
-            <div class="feature-icon">
-                <svg viewBox="0 0 24 24" fill="none" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
-                    <line x1="12" y1="1" x2="12" y2="23"/>
-                    <path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/>
-                </svg>
-            </div>
+        <div class="feature-card fade-in">
+            <div class="feature-icon">💰</div>
             <div class="feature-title">Automatic Credit Tracking</div>
-            <div class="feature-desc">
-                Tandem instructor base pay, rig bonuses, camera bonuses,
-                outside video pay, student instructor credits, AFF dual
-                instructor credits, and pilot pay all calculated automatically.
-            </div>
+            <div class="feature-desc">Tandem instructor base pay, rig bonuses, camera bonuses, outside video pay, student instructor credits, AFF dual instructor credits, and pilot pay all calculated automatically.</div>
         </div>
-
-        <div class="feature-card">
-            <div class="feature-icon">
-                <svg viewBox="0 0 24 24" fill="none" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
-                    <path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/>
-                    <circle cx="9" cy="7" r="4"/>
-                    <path d="M23 21v-2a4 4 0 0 0-3-3.87"/>
-                    <path d="M16 3.13a4 4 0 0 1 0 7.75"/>
-                </svg>
-            </div>
+        <div class="feature-card fade-in">
+            <div class="feature-icon">👥</div>
             <div class="feature-title">Member Management</div>
-            <div class="feature-desc">
-                Track regular members, students, and walk-ins. Manage
-                waivers, gear repacks, ratings, dues payments, and packing
-                credits all from one profile page.
-            </div>
+            <div class="feature-desc">Track regular members, students, and walk-ins. Manage waivers, gear repacks, ratings, dues payments, and packing credits all from one profile page.</div>
         </div>
-
-        <div class="feature-card">
-            <div class="feature-icon">
-                <svg viewBox="0 0 24 24" fill="none" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
-                    <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/>
-                    <polyline points="14 2 14 8 20 8"/>
-                    <line x1="16" y1="13" x2="8" y2="13"/>
-                    <line x1="16" y1="17" x2="8" y2="17"/>
-                </svg>
-            </div>
+        <div class="feature-card fade-in">
+            <div class="feature-icon">📊</div>
             <div class="feature-title">Excel Reports</div>
-            <div class="feature-desc">
-                Generate formatted Excel reports with date range selection.
-                Seven sheets covering monthly jumps, instructor earnings,
-                pilot activity, gear status, aircraft stats, and dues.
-            </div>
+            <div class="feature-desc">Generate formatted Excel reports with date range selection. Seven sheets covering monthly jumps, instructor earnings, pilot activity, gear status, aircraft stats, and dues.</div>
         </div>
-
-        <div class="feature-card">
-            <div class="feature-icon">
-                <svg viewBox="0 0 24 24" fill="none" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
-                    <rect x="2" y="3" width="20" height="14" rx="2"/>
-                    <line x1="8" y1="21" x2="16" y2="21"/>
-                    <line x1="12" y1="17" x2="12" y2="21"/>
-                </svg>
-            </div>
+        <div class="feature-card fade-in">
+            <div class="feature-icon">🖥️</div>
             <div class="feature-title">Live Display Board</div>
-            <div class="feature-desc">
-                A dedicated read-only jumper display designed for a second
-                monitor. Updates silently every 10 seconds with no flicker.
-                Jumpers can see their load without coming to the desk.
-            </div>
+            <div class="feature-desc">A dedicated read-only jumper display designed for a second monitor. Updates silently every 10 seconds. Jumpers can see their load without coming to the desk.</div>
         </div>
-
-        <div class="feature-card">
-            <div class="feature-icon">
-                <svg viewBox="0 0 24 24" fill="none" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
-                    <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/>
-                    <polyline points="7 10 12 15 17 10"/>
-                    <line x1="12" y1="15" x2="12" y2="3"/>
-                </svg>
-            </div>
+        <div class="feature-card fade-in">
+            <div class="feature-icon">💾</div>
             <div class="feature-title">Automatic Backups</div>
-            <div class="feature-desc">
-                Database backed up automatically every time the app opens
-                and closes. Manual backup downloads in one click. Your
-                data is always protected.
-            </div>
+            <div class="feature-desc">Database backed up automatically every time the app opens and closes. Manual backup downloads in one click. Your data is always protected.</div>
         </div>
-
-        <div class="feature-card">
-            <div class="feature-icon">
-                <svg viewBox="0 0 24 24" fill="none" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
-                    <path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/>
-                    <polyline points="9 22 9 12 15 12 15 22"/>
-                </svg>
-            </div>
+        <div class="feature-card fade-in">
+            <div class="feature-icon">🪂</div>
             <div class="feature-title">Gear Repack Tracking</div>
-            <div class="feature-desc">
-                Track reserve repack dates for personal and club gear.
-                Members can have multiple rigs. Warnings appear 30 days
-                before repacks are due. Overdue rigs block manifesting.
-            </div>
+            <div class="feature-desc">Track reserve repack dates for personal and club gear. Members can have multiple rigs. Warnings appear 30 days before repacks are due. Overdue rigs block manifesting.</div>
         </div>
-
-        <div class="feature-card">
-            <div class="feature-icon">
-                <svg viewBox="0 0 24 24" fill="none" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
-                    <circle cx="12" cy="12" r="3"/>
-                    <path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1-2.83 2.83l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-4 0v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83-2.83l.06-.06A1.65 1.65 0 0 0 4.68 15a1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1 0-4h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 2.83-2.83l.06.06A1.65 1.65 0 0 0 9 4.68a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 4 0v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 2.83l-.06.06A1.65 1.65 0 0 0 19.4 9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 0 4h-.09a1.65 1.65 0 0 0-1.51 1z"/>
-                </svg>
-            </div>
+        <div class="feature-card fade-in">
+            <div class="feature-icon">⚙️</div>
             <div class="feature-title">Fully Configurable</div>
-            <div class="feature-desc">
-                Set your club name, colors, pay rates, waiver validity,
-                default aircraft, and more. Every financial rate is
-                configurable to match your club's agreements.
-            </div>
+            <div class="feature-desc">Set your club name, colors, pay rates, waiver validity, default aircraft, and more. Every financial rate is configurable to match your club's agreements.</div>
         </div>
-
-        <div class="feature-card">
-            <div class="feature-icon">
-                <svg viewBox="0 0 24 24" fill="none" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
-                    <path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07A19.5 19.5 0 0 1 4.69 12 19.79 19.79 0 0 1 1.61 3.42 2 2 0 0 1 3.6 1h3a2 2 0 0 1 2 1.72c.127.96.361 1.903.7 2.81a2 2 0 0 1-.45 2.11L7.91 8.5a16 16 0 0 0 6 6l.91-.91a2 2 0 0 1 2.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0 1 22 16.92z"/>
-                </svg>
-            </div>
+        <div class="feature-card fade-in">
+            <div class="feature-icon">🚨</div>
             <div class="feature-title">Emergency Contacts</div>
-            <div class="feature-desc">
-                Searchable emergency contact list visible without admin
-                login. Anyone on the DZ can pull up a contact number
-                instantly when it matters most.
-            </div>
+            <div class="feature-desc">Searchable emergency contact list visible without admin login. Anyone on the DZ can pull up a contact number instantly when it matters most.</div>
         </div>
-
     </div>
 </section>
 
 <hr class="divider">
 
-<!-- SCREENSHOTS -->
-<section id="screenshots">
-    <div class="section-label">Screenshots</div>
-    <h2 class="section-title">See it in action</h2>
-    <p class="section-desc">
-        Built for real jump day workflow. Every screen designed
-        to be fast, clear, and easy to use under pressure.
-    </p>
-
-    <!-- Load Board Screenshot -->
-    <div style="margin-bottom: 48px;">
-        <div style="color: #a78bfa; font-size: 0.85rem; letter-spacing: 2px; margin-bottom: 12px;">LOAD BOARD</div>
-        <div style="background: #0d0d1a; border-radius: 12px; padding: 20px; border: 1px solid #1a1a3a;">
-            <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:16px;">
-                <div style="color:#a78bfa;font-weight:bold;font-size:1rem;letter-spacing:2px;">LOAD BOARD</div>
-                <div style="background:#512888;color:white;padding:6px 14px;border-radius:6px;font-size:0.8rem;">+ New Load</div>
-            </div>
-            <div style="background:#16213e;border-radius:10px;padding:16px;border-left:5px solid #512888;margin-bottom:12px;">
-                <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:10px;">
-                    <div>
-                        <div style="color:white;font-weight:bold;">Load #1</div>
-                        <div style="color:#aaa;font-size:0.8rem;">Cessna 182 — 3/4 slots</div>
-                    </div>
-                    <span style="background:#2a1a4a;color:#a78bfa;padding:3px 10px;border-radius:20px;font-size:0.75rem;font-weight:bold;">BUILDING</span>
-                </div>
-                <div style="background:#2a2a4a;border-radius:6px;padding:8px;margin-bottom:10px;display:flex;gap:16px;font-size:0.8rem;">
-                    <span style="color:#2ecc71;">✈ Mike Anderson</span>
-                    <span style="color:#aaa;">Cessna 182</span>
-                    <span style="color:#aaa;">3/4 slots</span>
-                </div>
-                <table style="width:100%;border-collapse:collapse;font-size:0.82rem;">
-                    <thead>
-                        <tr style="color:#aaa;border-bottom:1px solid #2a2a4a;">
-                            <th style="text-align:left;padding:5px 0;">#</th>
-                            <th style="text-align:left;padding:5px 0;">Jumper</th>
-                            <th style="text-align:left;padding:5px 0;">Ticket</th>
-                            <th style="text-align:left;padding:5px 0;">Instructor</th>
-                            <th style="text-align:left;padding:5px 0;">Cost</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <tr style="border-bottom:1px solid #1a1a3a;">
-                            <td style="padding:7px 0;color:#aaa;">1</td>
-                            <td style="padding:7px 0;color:white;font-weight:bold;">James Carter</td>
-                            <td style="padding:7px 0;color:#aaa;">Standard 10k</td>
-                            <td style="padding:7px 0;color:#aaa;">—</td>
-                            <td style="padding:7px 0;color:#e74c3c;">-$28.00</td>
-                        </tr>
-                        <tr style="border-bottom:1px solid #1a1a3a;">
-                            <td style="padding:7px 0;color:#aaa;">2-3</td>
-                            <td style="padding:7px 0;">
-                                <span style="color:white;font-weight:bold;">Brad Smith</span>
-                                <span style="background:#2a1a4a;color:#a78bfa;font-size:0.68rem;padding:1px 6px;border-radius:10px;margin-left:6px;">TANDEM</span>
-                                <div style="font-size:0.72rem;margin-top:2px;">
-                                    <span style="background:#1a3a2a;color:#55efc4;padding:1px 6px;border-radius:8px;">Inside Personal Cam</span>
-                                    <span style="background:#2a1a4a;color:#a78bfa;padding:1px 6px;border-radius:8px;margin-left:4px;">Personal Rig</span>
-                                </div>
-                            </td>
-                            <td style="padding:7px 0;color:#aaa;">Tandem Jump</td>
-                            <td style="padding:7px 0;color:#2ecc71;">Dave Wilson</td>
-                            <td style="padding:7px 0;color:#e74c3c;">-$175.00</td>
-                        </tr>
-                        <tr>
-                            <td style="padding:7px 0;color:#aaa;">4</td>
-                            <td style="padding:7px 0;">
-                                <span style="color:white;font-weight:bold;">Zoe White</span>
-                                <span style="background:#4a3a1a;color:#f39c12;font-size:0.68rem;padding:1px 6px;border-radius:10px;margin-left:6px;">STUDENT</span>
-                            </td>
-                            <td style="padding:7px 0;color:#aaa;">Static Line Cat A</td>
-                            <td style="padding:7px 0;color:#2ecc71;">Tom Davis</td>
-                            <td style="padding:7px 0;color:#e74c3c;">-$55.00</td>
-                        </tr>
-                    </tbody>
-                </table>
-            </div>
-            <div style="background:#16213e;border-radius:10px;padding:16px;border-left:5px solid #f39c12;">
-                <div style="display:flex;justify-content:space-between;align-items:center;">
-                    <div>
-                        <div style="color:white;font-weight:bold;">Load #2</div>
-                        <div style="color:#aaa;font-size:0.8rem;">Cessna 182 — 4/4 slots — FULL</div>
-                    </div>
-                    <span style="background:#4a3a1a;color:#f39c12;padding:3px 10px;border-radius:20px;font-size:0.75rem;font-weight:bold;">BOARDING</span>
-                </div>
-            </div>
-        </div>
-        <p style="color: #aaa; font-size: 0.9rem; margin-top: 12px;">
-            Create loads, assign pilots, add jumpers with full equipment selection.
-            Tandem rig and video options calculate instructor pay automatically.
-        </p>
+<!-- COMPARISON -->
+<section id="comparison">
+    <div class="fade-in">
+        <div class="section-label">Why Manifest 182</div>
+        <h2 class="section-title">vs. the way most DZs do it</h2>
+        <p class="section-desc">Most clubs still use spreadsheets, paper, or nothing at all. Here's what you're missing.</p>
     </div>
 
-    <!-- Credit Summary Screenshot -->
-    <div style="margin-bottom: 48px;">
-        <div style="color: #a78bfa; font-size: 0.85rem; letter-spacing: 2px; margin-bottom: 12px;">CREDIT SUMMARY</div>
-        <div style="background: #0d0d1a; border-radius: 12px; padding: 20px; border: 1px solid #1a1a3a;">
-            <div style="color:#a78bfa;font-weight:bold;font-size:1rem;letter-spacing:2px;margin-bottom:14px;">CREDIT SUMMARY — Dave Wilson</div>
-            <div style="display:flex;gap:10px;margin-bottom:16px;flex-wrap:wrap;align-items:center;">
-                <div style="background:#2a2a4a;border:1px solid #3a3a5a;border-radius:4px;color:#eee;padding:6px 10px;font-size:0.82rem;">07/20/2025</div>
-                <span style="color:#aaa;">to</span>
-                <div style="background:#2a2a4a;border:1px solid #3a3a5a;border-radius:4px;color:#eee;padding:6px 10px;font-size:0.82rem;">07/20/2026</div>
-                <div style="background:#512888;color:white;padding:6px 14px;border-radius:4px;font-size:0.8rem;">Apply</div>
-                <div style="background:#1a4a2e;color:#2ecc71;border:1px solid #2ecc71;padding:6px 14px;border-radius:4px;font-size:0.8rem;margin-left:auto;">Download Summary</div>
-            </div>
-            <div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(150px,1fr));gap:10px;margin-bottom:16px;">
-                <div style="background:#2a2a4a;border-radius:6px;padding:12px;border-left:3px solid #2ecc71;">
-                    <div style="color:#aaa;font-size:0.72rem;margin-bottom:4px;">Tandem Instructor Pay</div>
-                    <div style="color:#2ecc71;font-weight:bold;font-size:1.05rem;">+$375.00</div>
-                    <div style="color:#aaa;font-size:0.68rem;">15 transactions</div>
-                </div>
-                <div style="background:#2a2a4a;border-radius:6px;padding:12px;border-left:3px solid #a78bfa;">
-                    <div style="color:#aaa;font-size:0.72rem;margin-bottom:4px;">Rig Bonus</div>
-                    <div style="color:#2ecc71;font-weight:bold;font-size:1.05rem;">+$90.00</div>
-                    <div style="color:#aaa;font-size:0.68rem;">9 transactions</div>
-                </div>
-                <div style="background:#2a2a4a;border-radius:6px;padding:12px;border-left:3px solid #74b9ff;">
-                    <div style="color:#aaa;font-size:0.72rem;margin-bottom:4px;">Camera Bonus</div>
-                    <div style="color:#2ecc71;font-weight:bold;font-size:1.05rem;">+$120.00</div>
-                    <div style="color:#aaa;font-size:0.68rem;">8 transactions</div>
-                </div>
-                <div style="background:#2a2a4a;border-radius:6px;padding:12px;border-left:3px solid #2ecc71;">
-                    <div style="color:#aaa;font-size:0.72rem;margin-bottom:4px;">Packing Credits</div>
-                    <div style="color:#2ecc71;font-weight:bold;font-size:1.05rem;">+$60.00</div>
-                    <div style="color:#aaa;font-size:0.68rem;">4 transactions</div>
-                </div>
-                <div style="background:#2a2a4a;border-radius:6px;padding:12px;border-left:3px solid #e74c3c;">
-                    <div style="color:#aaa;font-size:0.72rem;margin-bottom:4px;">Jump Tickets</div>
-                    <div style="color:#e74c3c;font-weight:bold;font-size:1.05rem;">-$336.00</div>
-                    <div style="color:#aaa;font-size:0.68rem;">12 transactions</div>
-                </div>
-                <div style="background:#2a2a4a;border-radius:6px;padding:12px;border-left:3px solid #f39c12;">
-                    <div style="color:#aaa;font-size:0.72rem;margin-bottom:4px;">Club Dues</div>
-                    <div style="color:#e74c3c;font-weight:bold;font-size:1.05rem;">-$50.00</div>
-                    <div style="color:#aaa;font-size:0.68rem;">1 transaction</div>
-                </div>
-            </div>
-            <div style="display:flex;gap:16px;flex-wrap:wrap;">
-                <div style="background:#1a1a3a;border-radius:8px;padding:16px;flex:1;min-width:160px;border:1px solid #512888;">
-                    <div style="color:#aaa;font-size:0.8rem;margin-bottom:6px;">Period Total</div>
-                    <div style="color:#2ecc71;font-size:1.5rem;font-weight:bold;">+$259.00</div>
-                    <div style="color:#aaa;font-size:0.7rem;">07/20/2025 to 07/20/2026</div>
-                </div>
-                <div style="background:#1a1a3a;border-radius:8px;padding:16px;flex:1;min-width:160px;border:1px solid #2ecc71;">
-                    <div style="color:#aaa;font-size:0.8rem;margin-bottom:6px;">All Time Balance</div>
-                    <div style="color:#2ecc71;font-size:1.5rem;font-weight:bold;">+$412.00</div>
-                    <div style="color:#aaa;font-size:0.7rem;">Lifetime total</div>
-                </div>
-            </div>
-        </div>
-        <p style="color: #aaa; font-size: 0.9rem; margin-top: 12px;">
-            Every instructor sees exactly what they earned and how.
-            Download a personalized Excel summary for any date range.
-        </p>
-    </div>
-
-    <!-- Warnings Screenshot -->
-    <div style="margin-bottom: 48px;">
-        <div style="color: #a78bfa; font-size: 0.85rem; letter-spacing: 2px; margin-bottom: 12px;">WARNINGS TAB</div>
-        <div style="background: #0d0d1a; border-radius: 12px; padding: 20px; border: 1px solid #1a1a3a;">
-            <div style="color:#a78bfa;font-weight:bold;font-size:1rem;letter-spacing:2px;margin-bottom:14px;">WARNINGS</div>
-            <div style="background:#16213e;border-radius:10px;padding:14px;border-left:5px solid #e74c3c;margin-bottom:12px;">
-                <div style="color:#e74c3c;font-weight:bold;margin-bottom:10px;font-size:0.9rem;">Expired Waivers</div>
-                <div style="display:flex;justify-content:space-between;padding:7px 0;border-bottom:1px solid #1a1a3a;font-size:0.85rem;">
-                    <span style="color:white;font-weight:bold;">Sam Taylor</span>
-                    <span style="background:#3a0a0a;color:#e74c3c;padding:2px 8px;border-radius:10px;font-size:0.72rem;">EXPIRED 400 days ago</span>
-                </div>
-                <div style="display:flex;justify-content:space-between;padding:7px 0;font-size:0.85rem;">
-                    <span style="color:white;font-weight:bold;">Alex Green</span>
-                    <span style="background:#3a0a0a;color:#e74c3c;padding:2px 8px;border-radius:10px;font-size:0.72rem;">EXPIRED 19 days ago</span>
-                </div>
-            </div>
-            <div style="background:#16213e;border-radius:10px;padding:14px;border-left:5px solid #e74c3c;margin-bottom:12px;">
-                <div style="color:#e74c3c;font-weight:bold;margin-bottom:10px;font-size:0.9rem;">Gear Repack Overdue — Cannot Manifest</div>
-                <div style="display:flex;justify-content:space-between;padding:7px 0;font-size:0.85rem;">
-                    <span style="color:white;font-weight:bold;">Jordan Clark — Vectors VEC-1212</span>
-                    <span style="background:#3a0a0a;color:#e74c3c;padding:2px 8px;border-radius:10px;font-size:0.72rem;">OVERDUE 30 days</span>
-                </div>
-            </div>
-            <div style="background:#16213e;border-radius:10px;padding:14px;border-left:5px solid #f39c12;margin-bottom:12px;">
-                <div style="color:#f39c12;font-weight:bold;margin-bottom:10px;font-size:0.9rem;">Mixed Gear — Can Still Manifest</div>
-                <div style="display:flex;justify-content:space-between;padding:7px 0;font-size:0.85rem;">
-                    <span style="color:white;font-weight:bold;">Ryan Martinez</span>
-                    <span style="color:#aaa;">1 current rig / 1 overdue rig</span>
-                </div>
-            </div>
-            <div style="background:#16213e;border-radius:10px;padding:14px;border-left:5px solid #f39c12;">
-                <div style="color:#f39c12;font-weight:bold;margin-bottom:10px;font-size:0.9rem;">Club Gear Due Soon</div>
-                <div style="display:flex;justify-content:space-between;padding:7px 0;font-size:0.85rem;">
-                    <span style="color:white;font-weight:bold;">Tandem Rig #2</span>
-                    <span style="background:#4a3a1a;color:#f39c12;padding:2px 8px;border-radius:10px;font-size:0.72rem;">Due in 10 days</span>
-                </div>
-            </div>
-        </div>
-        <p style="color: #aaa; font-size: 0.9rem; margin-top: 12px;">
-            The warnings tab keeps your DZ safe and compliant.
-            Expired waivers, overdue gear, and unpaid dues all in one place.
-        </p>
+    <div class="fade-in" style="background: var(--dark2); border-radius: 16px; border: 1px solid #1a1a3a; overflow: hidden;">
+        <table class="comparison-table">
+            <thead>
+                <tr>
+                    <th style="padding: 20px; color: var(--muted); font-size: 0.85rem;">Feature</th>
+                    <th class="col-manifest col-manifest-header" style="padding: 20px;">MANIFEST 182</th>
+                    <th style="padding: 20px; color: var(--muted); font-size: 0.85rem;">Spreadsheet</th>
+                    <th style="padding: 20px; color: var(--muted); font-size: 0.85rem;">Paper / Nothing</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>Instructor pay calculated automatically</td>
+                    <td class="col-manifest"><span class="check">✓</span></td>
+                    <td><span class="partial">~</span> Manual formulas</td>
+                    <td><span class="cross">✗</span></td>
+                </tr>
+                <tr>
+                    <td>Waiver tracking and expiry warnings</td>
+                    <td class="col-manifest"><span class="check">✓</span></td>
+                    <td><span class="partial">~</span> Separate sheet</td>
+                    <td><span class="cross">✗</span></td>
+                </tr>
+                <tr>
+                    <td>Gear repack reminders</td>
+                    <td class="col-manifest"><span class="check">✓</span></td>
+                    <td><span class="partial">~</span> Manual tracking</td>
+                    <td><span class="cross">✗</span></td>
+                </tr>
+                <tr>
+                    <td>Live load board status tracking</td>
+                    <td class="col-manifest"><span class="check">✓</span></td>
+                    <td><span class="cross">✗</span></td>
+                    <td><span class="cross">✗</span></td>
+                </tr>
+                <tr>
+                    <td>Second monitor display for jumpers</td>
+                    <td class="col-manifest"><span class="check">✓</span></td>
+                    <td><span class="cross">✗</span></td>
+                    <td><span class="cross">✗</span></td>
+                </tr>
+                <tr>
+                    <td>Automatic credit reversals on removal</td>
+                    <td class="col-manifest"><span class="check">✓</span></td>
+                    <td><span class="cross">✗</span></td>
+                    <td><span class="cross">✗</span></td>
+                </tr>
+                <tr>
+                    <td>AFF dual instructor tracking</td>
+                    <td class="col-manifest"><span class="check">✓</span></td>
+                    <td><span class="partial">~</span> Complex formulas</td>
+                    <td><span class="cross">✗</span></td>
+                </tr>
+                <tr>
+                    <td>Works completely offline</td>
+                    <td class="col-manifest"><span class="check">✓</span></td>
+                    <td><span class="check">✓</span></td>
+                    <td><span class="check">✓</span></td>
+                </tr>
+                <tr>
+                    <td>Automatic daily backups</td>
+                    <td class="col-manifest"><span class="check">✓</span></td>
+                    <td><span class="cross">✗</span></td>
+                    <td><span class="cross">✗</span></td>
+                </tr>
+                <tr>
+                    <td>Individual instructor pay summaries</td>
+                    <td class="col-manifest"><span class="check">✓</span></td>
+                    <td><span class="partial">~</span> Manual work</td>
+                    <td><span class="cross">✗</span></td>
+                </tr>
+                <tr>
+                    <td>Emergency contacts without admin login</td>
+                    <td class="col-manifest"><span class="check">✓</span></td>
+                    <td><span class="cross">✗</span></td>
+                    <td><span class="partial">~</span> Binder somewhere</td>
+                </tr>
+                <tr>
+                    <td>Historical jump day records</td>
+                    <td class="col-manifest"><span class="check">✓</span></td>
+                    <td><span class="partial">~</span> Multiple files</td>
+                    <td><span class="cross">✗</span></td>
+                </tr>
+            </tbody>
+        </table>
     </div>
 </section>
 
@@ -928,30 +953,29 @@
 
 <!-- HOW IT WORKS -->
 <section id="how-it-works">
-    <div class="section-label">How It Works</div>
-    <h2 class="section-title">Up and running in minutes</h2>
-    <p class="section-desc">
-        No server setup. No internet connection. No IT department needed.
-        Just double click and go.
-    </p>
+    <div class="fade-in">
+        <div class="section-label">How It Works</div>
+        <h2 class="section-title">Up and running in minutes</h2>
+        <p class="section-desc">No server setup. No internet connection. No IT department needed. Just double click and go.</p>
+    </div>
 
     <div class="steps">
-        <div class="step">
+        <div class="step fade-in">
             <div class="step-number">1</div>
             <div class="step-title">Copy the folder</div>
             <div class="step-desc">Copy the app folder to your DZ computer. Everything is included — no installation wizard needed.</div>
         </div>
-        <div class="step">
+        <div class="step fade-in">
             <div class="step-number">2</div>
             <div class="step-title">Double click to open</div>
             <div class="step-desc">Double click Manifest-182.exe. A loading screen appears and the app opens as a standalone window.</div>
         </div>
-        <div class="step">
+        <div class="step fade-in">
             <div class="step-number">3</div>
             <div class="step-title">Configure your club</div>
             <div class="step-desc">Set your club name, pay rates, aircraft, pilots, and ticket types. Takes about 15 minutes the first time.</div>
         </div>
-        <div class="step">
+        <div class="step fade-in">
             <div class="step-number">4</div>
             <div class="step-title">Start manifesting</div>
             <div class="step-desc">Create a load, assign a pilot, add jumpers. Credits calculate automatically. That is it.</div>
@@ -961,15 +985,12 @@
 
 <hr class="divider">
 
-<!-- MONEY FLOW -->
+<!-- PAY TRACKING -->
 <section id="money">
-    <div class="money-section">
+    <div class="money-section fade-in">
         <div class="section-label">Pay Tracking</div>
         <h2 class="section-title">Every dollar tracked automatically</h2>
-        <p class="section-desc">
-            Add a jumper to a load and every credit calculates instantly.
-            Remove them and everything reverses. Nothing left unbalanced.
-        </p>
+        <p class="section-desc">Add a jumper to a load and every credit calculates instantly. Remove them and everything reverses. Nothing left unbalanced.</p>
 
         <div class="money-grid">
             <div class="money-card">
@@ -1002,17 +1023,179 @@
 
 <hr class="divider">
 
+<!-- ABOUT -->
+<section id="about">
+    <div class="about-grid">
+        <div class="about-text fade-in">
+            <div class="section-label">About</div>
+            <h2 class="section-title">Built by a skydiver for skydivers</h2>
+            <p>Manifest 182 started with a simple problem — our club was running the manifest on paper and a spreadsheet, and instructors never quite knew what they had earned at the end of the day.</p>
+            <p>After a season of manual calculations, missed credits, and lost paperwork, I built Manifest 182 from scratch to solve it properly. Every feature in this app came directly from real jump day experience.</p>
+            <p>The name comes from the Cessna 182 — the backbone of small club aviation and the plane that started it all for us.</p>
+            <p style="color: var(--purple-pale); font-weight: bold;">Every dollar your instructors earn is tracked automatically. Every gear repack is watched. Every waiver is enforced. So you can focus on the jump day — not the paperwork.</p>
+        </div>
+        <div class="about-stats fade-in">
+            <div class="about-stat">
+                <div class="about-stat-number">100%</div>
+                <div class="about-stat-label">Offline capable</div>
+            </div>
+            <div class="about-stat">
+                <div class="about-stat-number">Auto</div>
+                <div class="about-stat-label">Credit calculation</div>
+            </div>
+            <div class="about-stat">
+                <div class="about-stat-number">7</div>
+                <div class="about-stat-label">Excel report sheets</div>
+            </div>
+            <div class="about-stat">
+                <div class="about-stat-number">10s</div>
+                <div class="about-stat-label">Display board refresh</div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<hr class="divider">
+
+<!-- FAQ -->
+<section id="faq">
+    <div class="fade-in">
+        <div class="section-label">FAQ</div>
+        <h2 class="section-title">Common questions</h2>
+        <p class="section-desc">Everything you need to know before getting started.</p>
+    </div>
+
+    <div class="faq-list fade-in">
+        <div class="faq-item">
+            <div class="faq-question" onclick="toggleFaq(this)">
+                Does it require internet to run?
+                <span class="arrow">▼</span>
+            </div>
+            <div class="faq-answer">
+                <div class="faq-answer-inner">No. Manifest 182 runs completely offline on your DZ computer. No internet connection is needed to open the app, manifest jumpers, track credits, or generate reports. The only time you need internet is to download the software in the first place.</div>
+            </div>
+        </div>
+        <div class="faq-item">
+            <div class="faq-question" onclick="toggleFaq(this)">
+                What happens if the computer crashes?
+                <span class="arrow">▼</span>
+            </div>
+            <div class="faq-answer">
+                <div class="faq-answer-inner">Your data is saved to disk instantly after every action — there is no save button because it saves continuously. The app also creates automatic backups every time it opens and closes. You can also manually download a backup at any time from the admin panel and save it to a USB drive.</div>
+            </div>
+        </div>
+        <div class="faq-item">
+            <div class="faq-question" onclick="toggleFaq(this)">
+                Can we run it on multiple computers?
+                <span class="arrow">▼</span>
+            </div>
+            <div class="faq-answer">
+                <div class="faq-answer-inner">The app runs on one computer at a time. However a second monitor can display the live jumper board by opening a browser on the same computer and going to the local address. The display board updates automatically every 10 seconds with no flickering.</div>
+            </div>
+        </div>
+        <div class="faq-item">
+            <div class="faq-question" onclick="toggleFaq(this)">
+                How does instructor pay work?
+                <span class="arrow">▼</span>
+            </div>
+            <div class="faq-answer">
+                <div class="faq-answer-inner">When you add a tandem or student to a load, instructor pay is calculated and credited automatically based on the rates you configure in Settings. Tandem instructors earn a base rate plus optional rig and camera bonuses. Student instructors earn a per-ticket rate that you set on each ticket type. AFF Cat A through D support dual instructors who each earn the full credit. All credits reverse automatically if a slot is removed.</div>
+            </div>
+        </div>
+        <div class="faq-item">
+            <div class="faq-question" onclick="toggleFaq(this)">
+                What types of jumps does it support?
+                <span class="arrow">▼</span>
+            </div>
+            <div class="faq-answer">
+                <div class="faq-answer-inner">Manifest 182 supports all common jump types — regular licensed jumpers, walk-in tandem passengers, walk-in students, static line progressions, and AFF Cat A through H. AFF categories A through D automatically show a dual instructor dropdown. You create your own ticket types in the admin panel with custom prices and instructor credit amounts.</div>
+            </div>
+        </div>
+        <div class="faq-item">
+            <div class="faq-question" onclick="toggleFaq(this)">
+                Can we customize the pay rates?
+                <span class="arrow">▼</span>
+            </div>
+            <div class="faq-answer">
+                <div class="faq-answer-inner">Yes — everything is configurable. Tandem base pay, personal rig bonus, inside camera bonus, outside video base pay and camera bonuses, packing pay rates, pilot pay per load, and student instructor pay per ticket type. All rates are set in the admin Settings panel and take effect immediately.</div>
+            </div>
+        </div>
+        <div class="faq-item">
+            <div class="faq-question" onclick="toggleFaq(this)">
+                Do we need to install Python or any software?
+                <span class="arrow">▼</span>
+            </div>
+            <div class="faq-answer">
+                <div class="faq-answer-inner">No. The app comes as a single exe file with everything bundled inside. Just copy the folder to your computer and double click to open. No installation, no Python, no dependencies to manage.</div>
+            </div>
+        </div>
+        <div class="faq-item">
+            <div class="faq-question" onclick="toggleFaq(this)">
+                What if we get a new computer?
+                <span class="arrow">▼</span>
+            </div>
+            <div class="faq-answer">
+                <div class="faq-answer-inner">Copy the entire app folder to the new computer via USB drive — make sure to include the manifest182.db file which contains all your data. Double click the exe and everything is right where you left it. No reinstallation needed.</div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<hr class="divider">
+
+<!-- TESTIMONIALS -->
+<section id="testimonials">
+    <div class="fade-in">
+        <div class="section-label">Testimonials</div>
+        <h2 class="section-title">What DZs are saying</h2>
+        <p class="section-desc">Manifest 182 is currently being used in the field. More testimonials coming soon.</p>
+    </div>
+
+    <div class="testimonials-grid fade-in">
+        <div class="testimonial-card">
+            <div class="testimonial-text">"Finally a manifest system built by someone who actually jumps. The automatic instructor pay tracking alone saves us an hour of paperwork every jump day."</div>
+            <div class="testimonial-author">
+                <div class="testimonial-avatar">KP</div>
+                <div>
+                    <div class="testimonial-name">KSU Parachute Club</div>
+                    <div class="testimonial-role">Manhattan, Kansas</div>
+                </div>
+            </div>
+        </div>
+        <div class="testimonial-card" style="opacity: 0.5;">
+            <div class="testimonial-text">"Your testimonial could be here. Get in touch to learn more about bringing Manifest 182 to your DZ."</div>
+            <div class="testimonial-author">
+                <div class="testimonial-avatar">?</div>
+                <div>
+                    <div class="testimonial-name">Your Drop Zone</div>
+                    <div class="testimonial-role">Your Location</div>
+                </div>
+            </div>
+        </div>
+        <div class="testimonial-card" style="opacity: 0.5;">
+            <div class="testimonial-text">"Your testimonial could be here. Get in touch to learn more about bringing Manifest 182 to your DZ."</div>
+            <div class="testimonial-author">
+                <div class="testimonial-avatar">?</div>
+                <div>
+                    <div class="testimonial-name">Your Drop Zone</div>
+                    <div class="testimonial-role">Your Location</div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<hr class="divider">
+
 <!-- PRICING -->
 <section id="pricing">
-    <div class="section-label">Pricing</div>
-    <h2 class="section-title">Simple honest pricing</h2>
-    <p class="section-desc">
-        No subscriptions. No per-user fees. No surprise charges.
-        Pay once and own it.
-    </p>
+    <div class="fade-in">
+        <div class="section-label">Pricing</div>
+        <h2 class="section-title">Simple honest pricing</h2>
+        <p class="section-desc">No surprise charges. Get in touch and we will find the right option for your club.</p>
+    </div>
 
-    <div class="pricing-grid">
-
+    <div class="pricing-grid fade-in">
         <div class="pricing-card">
             <div class="pricing-name">Single DZ License</div>
             <div class="pricing-price">Contact <span>us</span></div>
@@ -1029,7 +1212,6 @@
             </ul>
             <a href="#contact" class="btn-primary" style="display:block;text-align:center;">Get in Touch</a>
         </div>
-
         <div class="pricing-card featured">
             <div class="pricing-badge">MOST POPULAR</div>
             <div class="pricing-name">Annual License</div>
@@ -1044,7 +1226,6 @@
             </ul>
             <a href="#contact" class="btn-primary" style="display:block;text-align:center;">Get in Touch</a>
         </div>
-
         <div class="pricing-card">
             <div class="pricing-name">Multi-DZ</div>
             <div class="pricing-price">Contact <span>us</span></div>
@@ -1058,7 +1239,6 @@
             </ul>
             <a href="#contact" class="btn-primary" style="display:block;text-align:center;">Get in Touch</a>
         </div>
-
     </div>
 </section>
 
@@ -1066,26 +1246,164 @@
 
 <!-- CONTACT -->
 <section id="contact">
-    <div class="contact-section">
-        <h2>Get in Touch</h2>
-        <p>
-            Interested in Manifest 182 for your drop zone?
-            Send us an email and we will get back to you
-            with pricing and setup details.
-        </p>
-        <a href="mailto:your@email.com" class="contact-email">your@email.com</a>
-        <br><br>
-        <p style="font-size:0.85rem; margin-top:16px;">
-            We typically respond within 24 hours.
-        </p>
+    <div class="fade-in">
+        <div class="section-label">Contact</div>
+        <h2 class="section-title">Get in touch</h2>
+    </div>
+
+    <div class="contact-grid fade-in">
+        <div class="contact-info">
+            <h3>Interested in Manifest 182?</h3>
+            <p>Send us a message and we will get back to you within 24 hours with pricing, setup details, and answers to any questions you have about bringing Manifest 182 to your drop zone.</p>
+            <div class="contact-detail">
+                <div class="contact-detail-icon">✉️</div>
+                <span>your@email.com</span>
+            </div>
+            <div class="contact-detail">
+                <div class="contact-detail-icon">⏱️</div>
+                <span>We typically respond within 24 hours</span>
+            </div>
+            <div class="contact-detail">
+                <div class="contact-detail-icon">🪂</div>
+                <span>Built by a skydiver who understands your DZ</span>
+            </div>
+        </div>
+
+        <div class="contact-form">
+            <div id="form-content">
+                <div class="form-group">
+                    <label>YOUR NAME</label>
+                    <input type="text" id="contact-name" placeholder="Jane Smith">
+                </div>
+                <div class="form-group">
+                    <label>EMAIL ADDRESS</label>
+                    <input type="email" id="contact-email" placeholder="jane@yourdz.com">
+                </div>
+                <div class="form-group">
+                    <label>DROP ZONE NAME</label>
+                    <input type="text" id="contact-dz" placeholder="Your Drop Zone">
+                </div>
+                <div class="form-group">
+                    <label>HOW CAN WE HELP?</label>
+                    <select id="contact-subject">
+                        <option value="">Select a topic</option>
+                        <option value="pricing">Pricing information</option>
+                        <option value="demo">Request a demo</option>
+                        <option value="features">Feature questions</option>
+                        <option value="support">Technical support</option>
+                        <option value="other">Something else</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label>MESSAGE</label>
+                    <textarea id="contact-message" placeholder="Tell us about your DZ and what you're looking for..."></textarea>
+                </div>
+                <button class="form-submit" onclick="submitForm()">SEND MESSAGE</button>
+            </div>
+            <div class="form-success" id="form-success">
+                <div style="font-size: 2rem; margin-bottom: 12px;">✓</div>
+                <div style="font-size: 1.1rem; font-weight: bold; margin-bottom: 8px;">Message sent!</div>
+                <div style="color: var(--muted);">We'll get back to you within 24 hours.</div>
+            </div>
+        </div>
     </div>
 </section>
 
 <!-- FOOTER -->
 <footer>
-    <div class="footer-brand">MANIFEST 182</div>
-    <p>Built for parachute clubs. &copy; 2026 Manifest 182. All rights reserved.</p>
+    <div class="footer-grid">
+        <div>
+            <div class="footer-brand">MANIFEST 182</div>
+            <p class="footer-desc">Complete manifest software built for parachute clubs. Handles everything from load board to instructor pay to gear repacks — all in one place.</p>
+        </div>
+        <div class="footer-col">
+            <h4>PRODUCT</h4>
+            <ul>
+                <li><a href="#features">Features</a></li>
+                <li><a href="#comparison">Why Manifest 182</a></li>
+                <li><a href="#how-it-works">How It Works</a></li>
+                <li><a href="#pricing">Pricing</a></li>
+            </ul>
+        </div>
+        <div class="footer-col">
+            <h4>COMPANY</h4>
+            <ul>
+                <li><a href="#about">About</a></li>
+                <li><a href="#faq">FAQ</a></li>
+                <li><a href="#testimonials">Testimonials</a></li>
+                <li><a href="#contact">Contact</a></li>
+            </ul>
+        </div>
+    </div>
+    <div class="footer-bottom">
+        <p>© 2026 Manifest 182. All rights reserved. Built by a skydiver for skydivers.</p>
+    </div>
 </footer>
+
+<script>
+    // Smooth scroll active nav highlighting
+    const sections = document.querySelectorAll('section[id], div.hero');
+    const navLinks = document.querySelectorAll('.nav-links a');
+
+    function updateActiveNav() {
+        let current = '';
+        sections.forEach(section => {
+            const sectionTop = section.offsetTop - 100;
+            if (window.scrollY >= sectionTop) {
+                current = section.getAttribute('id') || '';
+            }
+        });
+        navLinks.forEach(link => {
+            link.classList.remove('active');
+            if (link.getAttribute('href') === '#' + current) {
+                link.classList.add('active');
+            }
+        });
+    }
+
+    window.addEventListener('scroll', updateActiveNav);
+
+    // Fade in on scroll
+    const fadeEls = document.querySelectorAll('.fade-in');
+    const observer = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+            if (entry.isIntersecting) {
+                entry.target.classList.add('visible');
+            }
+        });
+    }, { threshold: 0.1 });
+
+    fadeEls.forEach(el => observer.observe(el));
+
+    // FAQ toggle
+    function toggleFaq(el) {
+        const item = el.parentElement;
+        const isOpen = item.classList.contains('open');
+        document.querySelectorAll('.faq-item').forEach(i => i.classList.remove('open'));
+        if (!isOpen) item.classList.add('open');
+    }
+
+    // Contact form — uses mailto as fallback
+    function submitForm() {
+        const name = document.getElementById('contact-name').value;
+        const email = document.getElementById('contact-email').value;
+        const dz = document.getElementById('contact-dz').value;
+        const subject = document.getElementById('contact-subject').value;
+        const message = document.getElementById('contact-message').value;
+
+        if (!name || !email || !message) {
+            alert('Please fill in your name, email, and message.');
+            return;
+        }
+
+        const body = `Name: ${name}\nDrop Zone: ${dz}\nTopic: ${subject}\n\nMessage:\n${message}`;
+        const mailtoLink = `mailto:your@email.com?subject=Manifest 182 Inquiry — ${dz}&body=${encodeURIComponent(body)}`;
+        window.location.href = mailtoLink;
+
+        document.getElementById('form-content').style.display = 'none';
+        document.getElementById('form-success').style.display = 'block';
+    }
+</script>
 
 </body>
 </html>
