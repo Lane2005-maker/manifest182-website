@@ -114,13 +114,6 @@
             pointer-events: none;
         }
 
-        .hero-logo {
-            width: 220px;
-            height: auto;
-            margin-bottom: 32px;
-            mix-blend-mode: screen;
-        }
-
         .hero-badge {
             display: inline-block;
             background: rgba(232,88,26,0.15);
@@ -282,26 +275,28 @@
         .feature-title { font-size: 1rem; font-weight: bold; color: white; margin-bottom: 8px; }
         .feature-desc { color: var(--muted); font-size: 0.88rem; line-height: 1.6; }
 
-        /* COMPARISON */
-        .comparison-wrap {
-            background: var(--dark2);
-            border-radius: 16px;
-            border: 1px solid #1B2D5B;
-            overflow: hidden;
+        /* SCREENSHOTS */
+        .screenshot-label {
+            color: var(--orange);
+            font-size: 0.8rem;
+            letter-spacing: 3px;
+            text-transform: uppercase;
+            margin-bottom: 12px;
         }
 
-        .comparison-table { width: 100%; border-collapse: collapse; font-size: 0.88rem; }
-        .comparison-table th { padding: 16px 20px; text-align: center; font-size: 0.82rem; letter-spacing: 1px; color: var(--muted); }
-        .comparison-table th:first-child { text-align: left; }
-        .comparison-table td { padding: 12px 20px; border-bottom: 1px solid #1B2D5B; text-align: center; color: var(--muted); }
-        .comparison-table td:first-child { text-align: left; color: var(--text); }
-        .comparison-table tr:last-child td { border-bottom: none; }
-        .comparison-table tr:hover td { background: rgba(27,45,91,0.2); }
-        .check { color: #2ecc71; font-size: 1rem; }
-        .cross { color: #e74c3c; font-size: 1rem; }
-        .partial { color: #f39c12; font-size: 1rem; }
-        .col-lh { background: rgba(232,88,26,0.06); border-left: 1px solid rgba(232,88,26,0.3); border-right: 1px solid rgba(232,88,26,0.3); }
-        .col-lh-header { background: var(--orange); color: white !important; }
+        .screenshot-frame {
+            background: #0d1226;
+            border-radius: 12px;
+            padding: 20px;
+            border: 1px solid #1B2D5B;
+        }
+
+        .screenshot-caption {
+            color: var(--muted);
+            font-size: 0.9rem;
+            margin-top: 14px;
+            line-height: 1.6;
+        }
 
         /* HOW IT WORKS */
         .steps { display: grid; grid-template-columns: repeat(auto-fill, minmax(220px, 1fr)); gap: 20px; }
@@ -320,39 +315,18 @@
         .money-desc { font-size: 0.8rem; color: var(--muted); line-height: 1.5; }
 
         /* PRICING */
-        .pricing-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); gap: 24px; }
-
         .pricing-card {
             background: var(--dark2);
             border-radius: 16px;
             padding: 40px;
-            border: 1px solid #1B2D5B;
+            border: 1px solid var(--orange);
             text-align: center;
             transition: transform 0.2s;
             position: relative;
-        }
-
-        .pricing-card:hover { transform: translateY(-4px); }
-
-        .pricing-card.featured {
-            border-color: var(--orange);
             background: linear-gradient(135deg, var(--dark2), rgba(232,88,26,0.08));
         }
 
-        .pricing-badge {
-            position: absolute;
-            top: -14px;
-            left: 50%;
-            transform: translateX(-50%);
-            background: var(--orange);
-            color: white;
-            padding: 4px 20px;
-            border-radius: 20px;
-            font-size: 0.72rem;
-            letter-spacing: 2px;
-            font-weight: bold;
-            white-space: nowrap;
-        }
+        .pricing-card:hover { transform: translateY(-4px); }
 
         .pricing-name { font-size: 1.1rem; font-weight: bold; color: white; margin-bottom: 20px; }
 
@@ -365,9 +339,7 @@
         }
 
         .pricing-price sup { font-size: 1.5rem; vertical-align: top; margin-top: 10px; }
-        .pricing-period { color: var(--muted); font-size: 0.9rem; margin-bottom: 8px; }
-        .pricing-annual { color: #2ecc71; font-size: 0.82rem; margin-bottom: 28px; }
-        .pricing-desc { color: var(--muted); font-size: 0.88rem; margin-bottom: 28px; }
+        .pricing-period { color: var(--muted); font-size: 0.9rem; margin-bottom: 28px; }
 
         .pricing-features { list-style: none; text-align: left; margin-bottom: 32px; }
         .pricing-features li { color: var(--muted); font-size: 0.88rem; padding: 8px 0; border-bottom: 1px solid #1B2D5B; display: flex; align-items: center; gap: 10px; }
@@ -384,15 +356,6 @@
         .faq-answer { max-height: 0; overflow: hidden; transition: max-height 0.3s ease; }
         .faq-item.open .faq-answer { max-height: 300px; }
         .faq-answer-inner { padding: 0 24px 18px; color: var(--muted); font-size: 0.9rem; line-height: 1.7; }
-
-        /* ABOUT */
-        .about-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 48px; align-items: center; }
-        .about-text p { color: var(--muted); margin-bottom: 16px; font-size: 0.95rem; line-height: 1.8; }
-        .about-highlight { color: var(--orange); font-weight: bold; font-size: 1rem; border-left: 3px solid var(--orange); padding-left: 16px; margin-top: 24px; }
-        .about-stats { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
-        .about-stat { background: var(--dark2); border-radius: 10px; padding: 24px; border: 1px solid #1B2D5B; text-align: center; }
-        .about-stat-number { font-size: 2rem; font-weight: bold; color: var(--orange); margin-bottom: 4px; }
-        .about-stat-label { font-size: 0.8rem; color: var(--muted); letter-spacing: 1px; }
 
         /* CONTACT */
         .contact-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 48px; align-items: start; }
@@ -432,7 +395,7 @@
             .nav-links { display: none; }
             section { padding: 60px 20px; }
             .hero { padding: 100px 20px 60px; }
-            .about-grid, .contact-grid { grid-template-columns: 1fr; }
+            .contact-grid { grid-template-columns: 1fr; }
             .footer-grid { grid-template-columns: 1fr; gap: 28px; }
             .money-section { padding: 24px; }
             .hero-stats { gap: 24px; }
@@ -448,6 +411,7 @@
     </a>
     <ul class="nav-links">
         <li><a href="#features">Features</a></li>
+        <li><a href="#screenshots">Screenshots</a></li>
         <li><a href="#how-it-works">How It Works</a></li>
         <li><a href="#pricing">Pricing</a></li>
         <li><a href="#faq">FAQ</a></li>
@@ -551,6 +515,132 @@
 
 <hr class="divider">
 
+<!-- SCREENSHOTS -->
+<section id="screenshots">
+    <div class="fade-in">
+        <div class="section-label">Screenshots</div>
+        <div class="orange-line"></div>
+        <h2 class="section-title">See it in action</h2>
+        <p class="section-desc">Built for real jump day workflow. Every screen designed to be fast, clear, and easy to use.</p>
+    </div>
+
+    <!-- Load Board -->
+    <div class="fade-in" style="margin-bottom: 48px;">
+        <div class="screenshot-label">Load Board</div>
+        <div class="screenshot-frame">
+            <div style="background:#111d3a;border-radius:10px;padding:16px;border-left:5px solid #E8581A;margin-bottom:12px;">
+                <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:10px;flex-wrap:wrap;gap:8px;">
+                    <div>
+                        <div style="color:white;font-weight:bold;">Load #1</div>
+                        <div style="color:#9BA3B5;font-size:0.8rem;">Cessna 182 — 4/4 slots — FULL</div>
+                    </div>
+                    <span style="background:#3d2410;color:#E8581A;padding:3px 12px;border-radius:20px;font-size:0.75rem;font-weight:bold;">BOARDING</span>
+                </div>
+                <div style="background:#1B2D5B;border-radius:6px;padding:8px 12px;margin-bottom:12px;display:flex;gap:16px;font-size:0.8rem;flex-wrap:wrap;">
+                    <span style="color:#2ecc71;">✈ Mike Anderson</span>
+                    <span style="color:#9BA3B5;">Cessna 182</span>
+                </div>
+                <table style="width:100%;border-collapse:collapse;font-size:0.82rem;">
+                    <thead>
+                        <tr style="color:#9BA3B5;border-bottom:1px solid #1B2D5B;">
+                            <th style="text-align:left;padding:6px 0;">#</th>
+                            <th style="text-align:left;padding:6px 0;">Jumper</th>
+                            <th style="text-align:left;padding:6px 0;white-space:nowrap;">Ticket</th>
+                            <th style="text-align:left;padding:6px 0;">Instructor</th>
+                            <th style="text-align:right;padding:6px 0;">Cost</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr style="border-bottom:1px solid #16234a;">
+                            <td style="padding:8px 0;color:#9BA3B5;">1</td>
+                            <td style="padding:8px 0;color:white;font-weight:bold;">James Carter</td>
+                            <td style="padding:8px 0;color:#9BA3B5;white-space:nowrap;">Standard 10k</td>
+                            <td style="padding:8px 0;color:#9BA3B5;">—</td>
+                            <td style="padding:8px 0;color:#e74c3c;text-align:right;">-$28.00</td>
+                        </tr>
+                        <tr style="border-bottom:1px solid #16234a;">
+                            <td style="padding:8px 0;color:#9BA3B5;">2-3</td>
+                            <td style="padding:8px 0;">
+                                <span style="color:white;font-weight:bold;">Brad Smith</span>
+                                <div style="display:flex;gap:4px;margin-top:3px;flex-wrap:wrap;">
+                                    <span style="background:#3d2410;color:#E8581A;font-size:0.68rem;padding:1px 6px;border-radius:8px;">TANDEM</span>
+                                    <span style="background:#12331f;color:#2ecc71;font-size:0.68rem;padding:1px 6px;border-radius:8px;">Personal Rig</span>
+                                    <span style="background:#1B2D5B;color:#74b9ff;font-size:0.68rem;padding:1px 6px;border-radius:8px;">Inside Cam</span>
+                                </div>
+                            </td>
+                            <td style="padding:8px 0;color:#9BA3B5;white-space:nowrap;">Tandem Jump</td>
+                            <td style="padding:8px 0;color:#2ecc71;">Dave Wilson</td>
+                            <td style="padding:8px 0;color:#e74c3c;text-align:right;">-$175.00</td>
+                        </tr>
+                        <tr>
+                            <td style="padding:8px 0;color:#9BA3B5;">4</td>
+                            <td style="padding:8px 0;">
+                                <span style="color:white;font-weight:bold;">Zoe White</span>
+                                <span style="background:#3d3010;color:#f39c12;font-size:0.68rem;padding:1px 6px;border-radius:8px;margin-left:6px;">STUDENT</span>
+                            </td>
+                            <td style="padding:8px 0;color:#9BA3B5;white-space:nowrap;">Static Line Cat A</td>
+                            <td style="padding:8px 0;color:#2ecc71;">Tom Davis</td>
+                            <td style="padding:8px 0;color:#e74c3c;text-align:right;">-$55.00</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+        <p class="screenshot-caption">
+            Create loads, assign pilots, and add jumpers with full equipment selection.
+            Tandem rig and video options calculate instructor pay automatically.
+        </p>
+    </div>
+
+    <!-- Credit Summary -->
+    <div class="fade-in">
+        <div class="screenshot-label">Instructor Credit Summary</div>
+        <div class="screenshot-frame">
+            <div style="color:#E8581A;font-weight:bold;font-size:0.95rem;letter-spacing:2px;margin-bottom:14px;">CREDIT SUMMARY — DAVE WILSON</div>
+            <div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(150px,1fr));gap:10px;margin-bottom:16px;">
+                <div style="background:#1B2D5B;border-radius:6px;padding:12px;border-left:3px solid #2ecc71;">
+                    <div style="color:#9BA3B5;font-size:0.72rem;margin-bottom:4px;">Tandem Instructor Pay</div>
+                    <div style="color:#2ecc71;font-weight:bold;font-size:1.05rem;">+$375.00</div>
+                    <div style="color:#9BA3B5;font-size:0.68rem;">15 transactions</div>
+                </div>
+                <div style="background:#1B2D5B;border-radius:6px;padding:12px;border-left:3px solid #E8581A;">
+                    <div style="color:#9BA3B5;font-size:0.72rem;margin-bottom:4px;">Rig Bonus</div>
+                    <div style="color:#2ecc71;font-weight:bold;font-size:1.05rem;">+$90.00</div>
+                    <div style="color:#9BA3B5;font-size:0.68rem;">9 transactions</div>
+                </div>
+                <div style="background:#1B2D5B;border-radius:6px;padding:12px;border-left:3px solid #74b9ff;">
+                    <div style="color:#9BA3B5;font-size:0.72rem;margin-bottom:4px;">Camera Bonus</div>
+                    <div style="color:#2ecc71;font-weight:bold;font-size:1.05rem;">+$120.00</div>
+                    <div style="color:#9BA3B5;font-size:0.68rem;">8 transactions</div>
+                </div>
+                <div style="background:#1B2D5B;border-radius:6px;padding:12px;border-left:3px solid #e74c3c;">
+                    <div style="color:#9BA3B5;font-size:0.72rem;margin-bottom:4px;">Jump Tickets</div>
+                    <div style="color:#e74c3c;font-weight:bold;font-size:1.05rem;">-$336.00</div>
+                    <div style="color:#9BA3B5;font-size:0.68rem;">12 transactions</div>
+                </div>
+            </div>
+            <div style="display:flex;gap:16px;flex-wrap:wrap;">
+                <div style="background:#0f1a35;border-radius:8px;padding:16px;flex:1;min-width:160px;border:1px solid #E8581A;">
+                    <div style="color:#9BA3B5;font-size:0.8rem;margin-bottom:6px;">Period Total</div>
+                    <div style="color:#2ecc71;font-size:1.5rem;font-weight:bold;">+$259.00</div>
+                    <div style="color:#9BA3B5;font-size:0.7rem;">01/01/2026 to 07/31/2026</div>
+                </div>
+                <div style="background:#0f1a35;border-radius:8px;padding:16px;flex:1;min-width:160px;border:1px solid #2ecc71;">
+                    <div style="color:#9BA3B5;font-size:0.8rem;margin-bottom:6px;">All Time Balance</div>
+                    <div style="color:#2ecc71;font-size:1.5rem;font-weight:bold;">+$412.00</div>
+                    <div style="color:#9BA3B5;font-size:0.7rem;">Lifetime total</div>
+                </div>
+            </div>
+        </div>
+        <p class="screenshot-caption">
+            Every instructor sees exactly what they earned and how.
+            Download a personalized Excel summary for any date range.
+        </p>
+    </div>
+</section>
+
+<hr class="divider">
+
 <!-- HOW IT WORKS -->
 <section id="how-it-works">
     <div class="fade-in">
@@ -568,7 +658,7 @@
         <div class="step fade-in">
             <div class="step-number">2</div>
             <div class="step-title">Download and install</div>
-            <div class="step-desc">Download LoadHog, run the setup file, and your desktop shortcut is ready. No Python, no dependencies, no setup wizard.</div>
+            <div class="step-desc">Download LoadHog, run the setup file, and your desktop shortcut is ready. No dependencies, no setup wizard.</div>
         </div>
         <div class="step fade-in">
             <div class="step-number">3</div>
@@ -631,12 +721,11 @@
         <h2 class="section-title">Simple honest pricing</h2>
         <p class="section-desc">One price. Everything included. Cancel anytime.</p>
     </div>
-    <div style="max-width: 400px; margin: 0 auto;" class="fade-in">
-        <div class="pricing-card featured">
+    <div style="max-width: 420px; margin: 0 auto;" class="fade-in">
+        <div class="pricing-card">
             <div class="pricing-name">Monthly Subscription</div>
             <div class="pricing-price"><sup>$</sup>200</div>
             <div class="pricing-period">per month per DZ</div>
-            <div class="pricing-annual">&nbsp;</div>
             <ul class="pricing-features">
                 <li>Full manifest system</li>
                 <li>Unlimited members and loads</li>
@@ -644,8 +733,8 @@
                 <li>Live display board</li>
                 <li>Excel reports</li>
                 <li>Automatic backups</li>
-                <li>Email support</li>
                 <li>All updates included</li>
+                <li>Email support</li>
                 <li>Cancel anytime</li>
             </ul>
             <a href="#contact" class="btn-primary" style="display:block;text-align:center;">Get Started</a>
@@ -669,7 +758,7 @@
     <div class="faq-list fade-in">
         <div class="faq-item">
             <div class="faq-question" onclick="toggleFaq(this)">Does it require internet to run? <span class="arrow">▼</span></div>
-            <div class="faq-answer"><div class="faq-answer-inner">No. LoadHog runs completely offline on your DZ computer. No internet connection is needed to manifest jumpers, track credits, or generate reports. A connection is only needed on startup to verify your license key — this takes less than a second and works on any wifi or hotspot.</div></div>
+            <div class="faq-answer"><div class="faq-answer-inner">No. LoadHog runs completely offline on your DZ computer. No internet connection is needed to manifest jumpers, track credits, or generate reports.</div></div>
         </div>
         <div class="faq-item">
             <div class="faq-question" onclick="toggleFaq(this)">What happens if the computer crashes? <span class="arrow">▼</span></div>
@@ -689,7 +778,7 @@
         </div>
         <div class="faq-item">
             <div class="faq-question" onclick="toggleFaq(this)">Can we cancel anytime? <span class="arrow">▼</span></div>
-            <div class="faq-answer"><div class="faq-answer-inner">Yes. Monthly plans can be cancelled anytime and your access continues until the end of your billing period. Annual plans are non-refundable but you keep access for the full year. Your data is always yours — export it anytime.</div></div>
+            <div class="faq-answer"><div class="faq-answer-inner">Yes. Monthly plans can be cancelled anytime and your access continues until the end of your billing period. Your data is always yours — export it anytime.</div></div>
         </div>
     </div>
 </section>
@@ -776,6 +865,7 @@
                 <h4>Product</h4>
                 <ul>
                     <li><a href="#features">Features</a></li>
+                    <li><a href="#screenshots">Screenshots</a></li>
                     <li><a href="#how-it-works">How It Works</a></li>
                     <li><a href="#pricing">Pricing</a></li>
                 </ul>
@@ -797,7 +887,6 @@
 </footer>
 
 <script>
-    // Active nav
     const navLinks = document.querySelectorAll('.nav-links a');
     const sections = document.querySelectorAll('section[id]');
     window.addEventListener('scroll', () => {
@@ -809,13 +898,11 @@
         });
     });
 
-    // Fade in
     const observer = new IntersectionObserver(entries => {
         entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('visible'); });
     }, { threshold: 0.1 });
     document.querySelectorAll('.fade-in').forEach(el => observer.observe(el));
 
-    // FAQ
     function toggleFaq(el) {
         const item = el.parentElement;
         const isOpen = item.classList.contains('open');
@@ -823,7 +910,6 @@
         if (!isOpen) item.classList.add('open');
     }
 
-    // Contact form
     function submitForm() {
         const name = document.getElementById('contact-name').value;
         const email = document.getElementById('contact-email').value;
