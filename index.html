@@ -3,14 +3,14 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>LoadHog — Skydiving Manifest Software</title>
+    <title>LoadHog Manifest — Skydiving Manifest Software</title>
     <style>
         * { margin: 0; padding: 0; box-sizing: border-box; }
 
         :root {
             --navy: #1B2D5B;
             --navy-light: #2a4480;
-            --navy-dark: #111d3a;
+            --navy-dark: #0f1a35;
             --orange: #E8581A;
             --orange-light: #f07040;
             --gray: #9BA3B5;
@@ -30,13 +30,14 @@
             line-height: 1.6;
         }
 
+        /* NAV */
         nav {
             position: fixed;
             top: 0;
             width: 100%;
             background: rgba(10, 15, 30, 0.97);
             backdrop-filter: blur(10px);
-            border-bottom: 1px solid #1B2D5B;
+            border-bottom: 2px solid var(--orange);
             z-index: 1000;
             padding: 0 40px;
             display: flex;
@@ -52,15 +53,20 @@
             text-decoration: none;
         }
 
-        .nav-logo img {
-            height: 44px;
-            width: auto;
+        .nav-logo-text {
+            font-size: 1.4rem;
+            font-weight: bold;
+            color: white;
+            letter-spacing: 2px;
         }
+
+        .nav-logo-text span { color: var(--orange); }
 
         .nav-links {
             display: flex;
             gap: 28px;
             list-style: none;
+            align-items: center;
         }
 
         .nav-links a {
@@ -81,11 +87,13 @@
             padding: 8px 20px;
             border-radius: 6px;
             border-bottom: none !important;
+            font-weight: bold;
             transition: background 0.2s !important;
         }
 
         .nav-cta:hover { background: var(--orange-light) !important; }
 
+        /* HERO */
         .hero {
             min-height: 100vh;
             display: flex;
@@ -95,21 +103,22 @@
             padding: 100px 40px 60px;
             position: relative;
             overflow: hidden;
+            background: linear-gradient(180deg, #0a0f1e 0%, #111d3a 100%);
         }
 
         .hero::before {
             content: '';
             position: absolute;
             top: 0; left: 0; right: 0; bottom: 0;
-            background: radial-gradient(ellipse at center top, rgba(27,45,91,0.4) 0%, transparent 70%);
+            background: radial-gradient(ellipse at center top, rgba(232,88,26,0.15) 0%, transparent 60%);
             pointer-events: none;
         }
 
         .hero-logo {
-            width: 260px;
+            width: 220px;
             height: auto;
             margin-bottom: 32px;
-            filter: drop-shadow(0 4px 24px rgba(232,88,26,0.2));
+            mix-blend-mode: screen;
         }
 
         .hero-badge {
@@ -117,30 +126,30 @@
             background: rgba(232,88,26,0.15);
             border: 1px solid var(--orange);
             color: var(--orange);
-            padding: 6px 18px;
+            padding: 6px 20px;
             border-radius: 20px;
-            font-size: 0.82rem;
+            font-size: 0.8rem;
             letter-spacing: 3px;
             margin-bottom: 24px;
+            text-transform: uppercase;
         }
 
         .hero h1 {
-            font-size: clamp(1.8rem, 4vw, 3rem);
+            font-size: clamp(2rem, 5vw, 3.5rem);
             font-weight: bold;
             color: white;
-            letter-spacing: 1px;
-            margin-bottom: 12px;
+            margin-bottom: 16px;
             line-height: 1.2;
         }
 
         .hero h1 span { color: var(--orange); }
 
         .hero-desc {
-            font-size: 1.05rem;
+            font-size: 1.1rem;
             color: var(--muted);
-            max-width: 580px;
+            max-width: 600px;
             margin: 0 auto 40px;
-            line-height: 1.7;
+            line-height: 1.8;
         }
 
         .hero-buttons {
@@ -148,12 +157,13 @@
             gap: 16px;
             justify-content: center;
             flex-wrap: wrap;
+            margin-bottom: 60px;
         }
 
         .btn-primary {
             background: var(--orange);
             color: white;
-            padding: 14px 32px;
+            padding: 14px 36px;
             border-radius: 8px;
             text-decoration: none;
             font-size: 1rem;
@@ -168,7 +178,7 @@
         .btn-secondary {
             background: transparent;
             color: white;
-            padding: 14px 32px;
+            padding: 14px 36px;
             border-radius: 8px;
             text-decoration: none;
             font-size: 1rem;
@@ -184,14 +194,16 @@
             display: flex;
             gap: 48px;
             justify-content: center;
-            margin-top: 60px;
             flex-wrap: wrap;
+            padding-top: 40px;
+            border-top: 1px solid #1B2D5B;
         }
 
         .stat { text-align: center; }
         .stat-number { font-size: 2rem; font-weight: bold; color: var(--orange); }
-        .stat-label { font-size: 0.82rem; color: var(--muted); letter-spacing: 1px; }
+        .stat-label { font-size: 0.8rem; color: var(--muted); letter-spacing: 2px; text-transform: uppercase; }
 
+        /* SECTIONS */
         section {
             padding: 80px 40px;
             max-width: 1100px;
@@ -199,11 +211,19 @@
         }
 
         .section-label {
-            font-size: 0.78rem;
+            font-size: 0.75rem;
             color: var(--orange);
             letter-spacing: 4px;
             text-transform: uppercase;
-            margin-bottom: 12px;
+            margin-bottom: 8px;
+        }
+
+        .orange-line {
+            width: 40px;
+            height: 3px;
+            background: var(--orange);
+            border-radius: 2px;
+            margin-bottom: 20px;
         }
 
         .section-title {
@@ -221,6 +241,7 @@
             line-height: 1.7;
         }
 
+        /* FADE IN */
         .fade-in {
             opacity: 0;
             transform: translateY(24px);
@@ -229,6 +250,7 @@
 
         .fade-in.visible { opacity: 1; transform: translateY(0); }
 
+        /* FEATURES */
         .features-grid {
             display: grid;
             grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
@@ -260,25 +282,35 @@
         .feature-title { font-size: 1rem; font-weight: bold; color: white; margin-bottom: 8px; }
         .feature-desc { color: var(--muted); font-size: 0.88rem; line-height: 1.6; }
 
-        .comparison-table { width: 100%; border-collapse: collapse; font-size: 0.9rem; }
-        .comparison-table th { padding: 14px 20px; text-align: center; font-weight: bold; font-size: 0.85rem; letter-spacing: 1px; color: var(--muted); }
+        /* COMPARISON */
+        .comparison-wrap {
+            background: var(--dark2);
+            border-radius: 16px;
+            border: 1px solid #1B2D5B;
+            overflow: hidden;
+        }
+
+        .comparison-table { width: 100%; border-collapse: collapse; font-size: 0.88rem; }
+        .comparison-table th { padding: 16px 20px; text-align: center; font-size: 0.82rem; letter-spacing: 1px; color: var(--muted); }
         .comparison-table th:first-child { text-align: left; }
         .comparison-table td { padding: 12px 20px; border-bottom: 1px solid #1B2D5B; text-align: center; color: var(--muted); }
         .comparison-table td:first-child { text-align: left; color: var(--text); }
         .comparison-table tr:last-child td { border-bottom: none; }
-        .comparison-table tr:hover td { background: rgba(27,45,91,0.3); }
-        .check { color: #2ecc71; }
-        .cross { color: #e74c3c; }
-        .partial { color: #f39c12; }
-        .col-lh { background: rgba(232,88,26,0.08); border-left: 1px solid var(--orange); border-right: 1px solid var(--orange); }
-        .col-lh-header { background: var(--orange); color: white !important; border-radius: 8px 8px 0 0; }
+        .comparison-table tr:hover td { background: rgba(27,45,91,0.2); }
+        .check { color: #2ecc71; font-size: 1rem; }
+        .cross { color: #e74c3c; font-size: 1rem; }
+        .partial { color: #f39c12; font-size: 1rem; }
+        .col-lh { background: rgba(232,88,26,0.06); border-left: 1px solid rgba(232,88,26,0.3); border-right: 1px solid rgba(232,88,26,0.3); }
+        .col-lh-header { background: var(--orange); color: white !important; }
 
+        /* HOW IT WORKS */
         .steps { display: grid; grid-template-columns: repeat(auto-fill, minmax(220px, 1fr)); gap: 20px; }
-        .step { background: var(--dark2); border-radius: 12px; padding: 28px; border: 1px solid #1B2D5B; }
+        .step { background: var(--dark2); border-radius: 12px; padding: 28px; border: 1px solid #1B2D5B; position: relative; }
         .step-number { width: 36px; height: 36px; background: var(--orange); border-radius: 50%; display: flex; align-items: center; justify-content: center; font-weight: bold; font-size: 0.9rem; margin-bottom: 16px; color: white; }
         .step-title { font-size: 1rem; font-weight: bold; color: white; margin-bottom: 8px; }
-        .step-desc { color: var(--muted); font-size: 0.88rem; }
+        .step-desc { color: var(--muted); font-size: 0.88rem; line-height: 1.6; }
 
+        /* PAY TRACKING */
         .money-section { background: var(--dark2); border-radius: 16px; padding: 48px; border: 1px solid #1B2D5B; }
         .money-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)); gap: 16px; margin-top: 32px; }
         .money-card { background: var(--dark3); border-radius: 10px; padding: 18px; border-left: 3px solid var(--navy-light); }
@@ -287,53 +319,90 @@
         .money-title { font-size: 0.88rem; font-weight: bold; color: white; margin-bottom: 6px; }
         .money-desc { font-size: 0.8rem; color: var(--muted); line-height: 1.5; }
 
-        .about-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 48px; align-items: center; }
-        .about-text p { color: var(--muted); margin-bottom: 16px; font-size: 0.95rem; line-height: 1.7; }
-        .about-stats { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
-        .about-stat { background: var(--dark2); border-radius: 10px; padding: 20px; border: 1px solid #1B2D5B; text-align: center; }
-        .about-stat-number { font-size: 1.8rem; font-weight: bold; color: var(--orange); margin-bottom: 4px; }
-        .about-stat-label { font-size: 0.8rem; color: var(--muted); }
+        /* PRICING */
+        .pricing-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); gap: 24px; }
 
+        .pricing-card {
+            background: var(--dark2);
+            border-radius: 16px;
+            padding: 40px;
+            border: 1px solid #1B2D5B;
+            text-align: center;
+            transition: transform 0.2s;
+            position: relative;
+        }
+
+        .pricing-card:hover { transform: translateY(-4px); }
+
+        .pricing-card.featured {
+            border-color: var(--orange);
+            background: linear-gradient(135deg, var(--dark2), rgba(232,88,26,0.08));
+        }
+
+        .pricing-badge {
+            position: absolute;
+            top: -14px;
+            left: 50%;
+            transform: translateX(-50%);
+            background: var(--orange);
+            color: white;
+            padding: 4px 20px;
+            border-radius: 20px;
+            font-size: 0.72rem;
+            letter-spacing: 2px;
+            font-weight: bold;
+            white-space: nowrap;
+        }
+
+        .pricing-name { font-size: 1.1rem; font-weight: bold; color: white; margin-bottom: 20px; }
+
+        .pricing-price {
+            font-size: 3.5rem;
+            font-weight: bold;
+            color: var(--orange);
+            line-height: 1;
+            margin-bottom: 4px;
+        }
+
+        .pricing-price sup { font-size: 1.5rem; vertical-align: top; margin-top: 10px; }
+        .pricing-period { color: var(--muted); font-size: 0.9rem; margin-bottom: 8px; }
+        .pricing-annual { color: #2ecc71; font-size: 0.82rem; margin-bottom: 28px; }
+        .pricing-desc { color: var(--muted); font-size: 0.88rem; margin-bottom: 28px; }
+
+        .pricing-features { list-style: none; text-align: left; margin-bottom: 32px; }
+        .pricing-features li { color: var(--muted); font-size: 0.88rem; padding: 8px 0; border-bottom: 1px solid #1B2D5B; display: flex; align-items: center; gap: 10px; }
+        .pricing-features li::before { content: '✓'; color: #2ecc71; font-weight: bold; flex-shrink: 0; }
+        .pricing-features li:last-child { border-bottom: none; }
+
+        /* FAQ */
         .faq-list { display: flex; flex-direction: column; gap: 12px; }
         .faq-item { background: var(--dark2); border-radius: 10px; border: 1px solid #1B2D5B; overflow: hidden; }
         .faq-question { padding: 18px 24px; cursor: pointer; display: flex; justify-content: space-between; align-items: center; color: white; font-weight: bold; font-size: 0.95rem; transition: background 0.2s; }
         .faq-question:hover { background: rgba(27,45,91,0.4); }
-        .faq-question .arrow { color: var(--orange); font-size: 1rem; transition: transform 0.3s; flex-shrink: 0; }
+        .faq-question .arrow { color: var(--orange); transition: transform 0.3s; flex-shrink: 0; }
         .faq-item.open .arrow { transform: rotate(180deg); }
         .faq-answer { max-height: 0; overflow: hidden; transition: max-height 0.3s ease; }
         .faq-item.open .faq-answer { max-height: 300px; }
         .faq-answer-inner { padding: 0 24px 18px; color: var(--muted); font-size: 0.9rem; line-height: 1.7; }
 
-        .testimonials-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); gap: 20px; }
-        .testimonial-card { background: var(--dark2); border-radius: 12px; padding: 28px; border: 1px solid #1B2D5B; border-top: 3px solid var(--orange); }
-        .testimonial-text { color: var(--muted); font-size: 0.92rem; line-height: 1.7; margin-bottom: 20px; font-style: italic; }
-        .testimonial-author { display: flex; align-items: center; gap: 12px; }
-        .testimonial-avatar { width: 40px; height: 40px; border-radius: 50%; background: var(--navy); display: flex; align-items: center; justify-content: center; font-weight: bold; color: white; font-size: 0.85rem; border: 2px solid var(--orange); }
-        .testimonial-name { color: white; font-weight: bold; font-size: 0.88rem; }
-        .testimonial-role { color: var(--muted); font-size: 0.78rem; }
+        /* ABOUT */
+        .about-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 48px; align-items: center; }
+        .about-text p { color: var(--muted); margin-bottom: 16px; font-size: 0.95rem; line-height: 1.8; }
+        .about-highlight { color: var(--orange); font-weight: bold; font-size: 1rem; border-left: 3px solid var(--orange); padding-left: 16px; margin-top: 24px; }
+        .about-stats { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+        .about-stat { background: var(--dark2); border-radius: 10px; padding: 24px; border: 1px solid #1B2D5B; text-align: center; }
+        .about-stat-number { font-size: 2rem; font-weight: bold; color: var(--orange); margin-bottom: 4px; }
+        .about-stat-label { font-size: 0.8rem; color: var(--muted); letter-spacing: 1px; }
 
-        .pricing-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 20px; }
-        .pricing-card { background: var(--dark2); border-radius: 16px; padding: 36px; border: 1px solid #1B2D5B; text-align: center; transition: transform 0.2s; }
-        .pricing-card:hover { transform: translateY(-4px); }
-        .pricing-card.featured { border-color: var(--orange); }
-        .pricing-badge { display: inline-block; background: var(--orange); color: white; padding: 4px 14px; border-radius: 20px; font-size: 0.72rem; letter-spacing: 1px; margin-bottom: 16px; }
-        .pricing-name { font-size: 1.1rem; font-weight: bold; color: white; margin-bottom: 8px; }
-        .pricing-price { font-size: 2.8rem; font-weight: bold; color: var(--orange); margin-bottom: 4px; }
-        .pricing-price span { font-size: 1rem; color: var(--muted); font-weight: normal; }
-        .pricing-desc { color: var(--muted); font-size: 0.88rem; margin-bottom: 24px; }
-        .pricing-features { list-style: none; text-align: left; margin-bottom: 28px; }
-        .pricing-features li { color: var(--muted); font-size: 0.88rem; padding: 6px 0; border-bottom: 1px solid #1B2D5B; display: flex; align-items: center; gap: 10px; }
-        .pricing-features li::before { content: '✓'; color: #2ecc71; font-weight: bold; flex-shrink: 0; }
-        .pricing-features li:last-child { border-bottom: none; }
-
+        /* CONTACT */
         .contact-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 48px; align-items: start; }
         .contact-info h3 { color: white; font-size: 1.2rem; margin-bottom: 16px; }
         .contact-info p { color: var(--muted); margin-bottom: 20px; line-height: 1.7; font-size: 0.95rem; }
         .contact-detail { display: flex; align-items: center; gap: 12px; margin-bottom: 14px; color: var(--muted); font-size: 0.9rem; }
         .contact-detail-icon { width: 34px; height: 34px; background: rgba(232,88,26,0.15); border-radius: 8px; display: flex; align-items: center; justify-content: center; font-size: 0.9rem; flex-shrink: 0; }
-        .contact-form { background: var(--dark2); border-radius: 16px; padding: 28px; border: 1px solid #1B2D5B; }
+        .contact-form { background: var(--dark2); border-radius: 16px; padding: 32px; border: 1px solid #1B2D5B; }
         .form-group { margin-bottom: 16px; }
-        .form-group label { display: block; color: var(--muted); font-size: 0.78rem; margin-bottom: 6px; letter-spacing: 1px; }
+        .form-group label { display: block; color: var(--muted); font-size: 0.78rem; margin-bottom: 6px; letter-spacing: 1px; text-transform: uppercase; }
         .form-group input, .form-group textarea, .form-group select { width: 100%; padding: 10px 14px; background: #0a0f1e; border: 1px solid #1B2D5B; border-radius: 6px; color: white; font-size: 0.9rem; font-family: Arial, sans-serif; transition: border-color 0.2s; }
         .form-group input:focus, .form-group textarea:focus, .form-group select:focus { outline: none; border-color: var(--orange); }
         .form-group textarea { resize: vertical; min-height: 110px; }
@@ -341,20 +410,22 @@
         .form-submit:hover { background: var(--orange-light); }
         .form-success { display: none; text-align: center; padding: 24px; color: #2ecc71; }
 
+        /* FOOTER */
         footer { background: var(--dark2); border-top: 1px solid #1B2D5B; padding: 48px 40px 28px; }
-        .footer-grid { display: grid; grid-template-columns: 2fr 1fr 1fr; gap: 48px; max-width: 1100px; margin: 0 auto 28px; }
-        .footer-logo { height: 48px; width: auto; margin-bottom: 12px; }
+        .footer-inner { max-width: 1100px; margin: 0 auto; }
+        .footer-grid { display: grid; grid-template-columns: 2fr 1fr 1fr; gap: 48px; margin-bottom: 32px; }
+        .footer-logo-text { font-size: 1.3rem; font-weight: bold; color: white; letter-spacing: 2px; margin-bottom: 12px; }
+        .footer-logo-text span { color: var(--orange); }
         .footer-desc { color: var(--muted); font-size: 0.85rem; line-height: 1.6; }
-        .footer-col h4 { color: white; font-size: 0.85rem; letter-spacing: 2px; margin-bottom: 14px; }
+        .footer-col h4 { color: white; font-size: 0.82rem; letter-spacing: 2px; text-transform: uppercase; margin-bottom: 16px; }
         .footer-col ul { list-style: none; }
         .footer-col ul li { margin-bottom: 8px; }
         .footer-col ul li a { color: var(--muted); text-decoration: none; font-size: 0.85rem; transition: color 0.2s; }
         .footer-col ul li a:hover { color: var(--orange); }
-        .footer-bottom { text-align: center; padding-top: 20px; border-top: 1px solid #1B2D5B; color: var(--muted); font-size: 0.8rem; max-width: 1100px; margin: 0 auto; }
+        .footer-bottom { padding-top: 24px; border-top: 1px solid #1B2D5B; display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 12px; }
+        .footer-bottom p { color: var(--muted); font-size: 0.8rem; }
 
         .divider { border: none; border-top: 1px solid #1B2D5B; margin: 0; }
-
-        .orange-line { width: 48px; height: 3px; background: var(--orange); border-radius: 2px; margin-bottom: 24px; }
 
         @media (max-width: 768px) {
             nav { padding: 0 20px; }
@@ -364,40 +435,46 @@
             .about-grid, .contact-grid { grid-template-columns: 1fr; }
             .footer-grid { grid-template-columns: 1fr; gap: 28px; }
             .money-section { padding: 24px; }
+            .hero-stats { gap: 24px; }
         }
     </style>
 </head>
 <body>
 
+<!-- NAV -->
 <nav>
     <a href="#" class="nav-logo">
-        <img src="logo.png" alt="LoadHog Manifest">
+        <div class="nav-logo-text">LOAD<span>HOG</span></div>
     </a>
     <ul class="nav-links">
         <li><a href="#features">Features</a></li>
         <li><a href="#comparison">Why Us</a></li>
         <li><a href="#how-it-works">How It Works</a></li>
-        <li><a href="#about">About</a></li>
-        <li><a href="#faq">FAQ</a></li>
         <li><a href="#pricing">Pricing</a></li>
-        <li><a href="#contact" class="nav-cta">Get in Touch</a></li>
+        <li><a href="#faq">FAQ</a></li>
+        <li><a href="#about">About</a></li>
+        <li><a href="#contact" class="nav-cta">Get Started</a></li>
     </ul>
 </nav>
 
+<!-- HERO -->
 <div class="hero">
     <div>
-        <img src="logo.png" alt="LoadHog Manifest" class="hero-logo">
-        <div class="hero-badge">SKYDIVING MANIFEST SOFTWARE</div>
-        <h1>Stop manifesting on <span>spreadsheets.</span></h1>
-        <p class="hero-desc">LoadHog is a complete desktop manifest system built for parachute clubs. Jumper tracking, automatic instructor pay, gear repacks, club dues, and reports — all in one place. No internet required.</p>
+        <div class="hero-badge">Skydiving Manifest Software</div>
+        <h1>Stop manifesting on<br><span>spreadsheets.</span></h1>
+        <p class="hero-desc">
+            LoadHog is a complete desktop manifest system built for parachute clubs.
+            Automatic instructor pay, gear repack tracking, live load board,
+            and Excel reports — all in one place. No internet required.
+        </p>
         <div class="hero-buttons">
-            <a href="#features" class="btn-primary">See Features</a>
-            <a href="#contact" class="btn-secondary">Get in Touch</a>
+            <a href="#pricing" class="btn-primary">Get Started — $200/mo</a>
+            <a href="#features" class="btn-secondary">See Features</a>
         </div>
         <div class="hero-stats">
             <div class="stat">
                 <div class="stat-number">Auto</div>
-                <div class="stat-label">Credit Tracking</div>
+                <div class="stat-label">Pay Tracking</div>
             </div>
             <div class="stat">
                 <div class="stat-number">100%</div>
@@ -417,6 +494,7 @@
 
 <hr class="divider">
 
+<!-- FEATURES -->
 <section id="features">
     <div class="fade-in">
         <div class="section-label">Features</div>
@@ -453,7 +531,7 @@
         <div class="feature-card fade-in">
             <div class="feature-icon">💾</div>
             <div class="feature-title">Automatic Backups</div>
-            <div class="feature-desc">Database backed up every time the app opens and closes. Manual backup in one click. Your data is always safe.</div>
+            <div class="feature-desc">Database backed up every time the app opens and closes to your Documents folder. Manual backup in one click. Your data is always safe.</div>
         </div>
         <div class="feature-card fade-in">
             <div class="feature-icon">🪂</div>
@@ -475,6 +553,7 @@
 
 <hr class="divider">
 
+<!-- COMPARISON -->
 <section id="comparison">
     <div class="fade-in">
         <div class="section-label">Why LoadHog</div>
@@ -482,29 +561,28 @@
         <h2 class="section-title">vs. the way most DZs do it</h2>
         <p class="section-desc">Most clubs still use spreadsheets, paper, or nothing at all. Here is what you are missing.</p>
     </div>
-    <div class="fade-in" style="background: var(--dark2); border-radius: 16px; border: 1px solid #1B2D5B; overflow: hidden;">
+    <div class="comparison-wrap fade-in">
         <table class="comparison-table">
             <thead>
                 <tr>
-                    <th style="padding:20px;text-align:left;">Feature</th>
-                    <th class="col-lh col-lh-header" style="padding:20px;">LOADHOG</th>
+                    <th style="padding:20px;text-align:left;color:var(--muted);">Feature</th>
+                    <th class="col-lh col-lh-header" style="padding:20px;color:white;font-weight:bold;">LOADHOG</th>
                     <th style="padding:20px;">Spreadsheet</th>
-                    <th style="padding:20px;">Paper / Nothing</th>
+                    <th style="padding:20px;">Paper</th>
                 </tr>
             </thead>
             <tbody>
-                <tr><td>Instructor pay calculated automatically</td><td class="col-lh"><span class="check">✓</span></td><td><span class="partial">~</span> Manual formulas</td><td><span class="cross">✗</span></td></tr>
+                <tr><td>Instructor pay calculated automatically</td><td class="col-lh"><span class="check">✓</span></td><td><span class="partial">~</span> Manual</td><td><span class="cross">✗</span></td></tr>
                 <tr><td>Waiver tracking and expiry warnings</td><td class="col-lh"><span class="check">✓</span></td><td><span class="partial">~</span> Separate sheet</td><td><span class="cross">✗</span></td></tr>
-                <tr><td>Gear repack reminders</td><td class="col-lh"><span class="check">✓</span></td><td><span class="partial">~</span> Manual tracking</td><td><span class="cross">✗</span></td></tr>
+                <tr><td>Gear repack reminders</td><td class="col-lh"><span class="check">✓</span></td><td><span class="partial">~</span> Manual</td><td><span class="cross">✗</span></td></tr>
                 <tr><td>Live load board status tracking</td><td class="col-lh"><span class="check">✓</span></td><td><span class="cross">✗</span></td><td><span class="cross">✗</span></td></tr>
                 <tr><td>Second monitor display for jumpers</td><td class="col-lh"><span class="check">✓</span></td><td><span class="cross">✗</span></td><td><span class="cross">✗</span></td></tr>
                 <tr><td>Automatic credit reversals on removal</td><td class="col-lh"><span class="check">✓</span></td><td><span class="cross">✗</span></td><td><span class="cross">✗</span></td></tr>
-                <tr><td>AFF dual instructor tracking</td><td class="col-lh"><span class="check">✓</span></td><td><span class="partial">~</span> Complex formulas</td><td><span class="cross">✗</span></td></tr>
+                <tr><td>AFF dual instructor tracking</td><td class="col-lh"><span class="check">✓</span></td><td><span class="partial">~</span> Complex</td><td><span class="cross">✗</span></td></tr>
                 <tr><td>Works completely offline</td><td class="col-lh"><span class="check">✓</span></td><td><span class="check">✓</span></td><td><span class="check">✓</span></td></tr>
                 <tr><td>Automatic daily backups</td><td class="col-lh"><span class="check">✓</span></td><td><span class="cross">✗</span></td><td><span class="cross">✗</span></td></tr>
                 <tr><td>Individual instructor pay summaries</td><td class="col-lh"><span class="check">✓</span></td><td><span class="partial">~</span> Manual work</td><td><span class="cross">✗</span></td></tr>
-                <tr><td>Emergency contacts without admin login</td><td class="col-lh"><span class="check">✓</span></td><td><span class="cross">✗</span></td><td><span class="partial">~</span> Binder somewhere</td></tr>
-                <tr><td>Historical jump day records</td><td class="col-lh"><span class="check">✓</span></td><td><span class="partial">~</span> Multiple files</td><td><span class="cross">✗</span></td></tr>
+                <tr><td>Emergency contacts without admin login</td><td class="col-lh"><span class="check">✓</span></td><td><span class="cross">✗</span></td><td><span class="partial">~</span> Binder</td></tr>
             </tbody>
         </table>
     </div>
@@ -512,6 +590,7 @@
 
 <hr class="divider">
 
+<!-- HOW IT WORKS -->
 <section id="how-it-works">
     <div class="fade-in">
         <div class="section-label">How It Works</div>
@@ -522,35 +601,36 @@
     <div class="steps">
         <div class="step fade-in">
             <div class="step-number">1</div>
-            <div class="step-title">Copy the folder</div>
-            <div class="step-desc">Copy the app folder to your DZ computer. Everything is included — no installation needed.</div>
+            <div class="step-title">Subscribe</div>
+            <div class="step-desc">Choose your plan and subscribe. You will receive a license key and download link by email within minutes.</div>
         </div>
         <div class="step fade-in">
             <div class="step-number">2</div>
-            <div class="step-title">Double click to open</div>
-            <div class="step-desc">Double click LoadHog.exe. A loading screen appears and the app opens as a standalone window.</div>
+            <div class="step-title">Download and install</div>
+            <div class="step-desc">Download LoadHog, run the setup file, and your desktop shortcut is ready. No Python, no dependencies, no setup wizard.</div>
         </div>
         <div class="step fade-in">
             <div class="step-number">3</div>
-            <div class="step-title">Configure your club</div>
-            <div class="step-desc">Set your club name, pay rates, aircraft, pilots, and ticket types. Takes about 15 minutes the first time.</div>
+            <div class="step-title">Enter your license key</div>
+            <div class="step-desc">Paste your license key on first launch. Takes 10 seconds. The app verifies and you are in.</div>
         </div>
         <div class="step fade-in">
             <div class="step-number">4</div>
-            <div class="step-title">Start manifesting</div>
-            <div class="step-desc">Create a load, assign a pilot, add jumpers. Pay calculates automatically. That is it.</div>
+            <div class="step-title">Configure and go</div>
+            <div class="step-desc">Set your club name, pay rates, aircraft, and pilots. Takes about 15 minutes. Then start manifesting.</div>
         </div>
     </div>
 </section>
 
 <hr class="divider">
 
-<section id="money">
+<!-- PAY TRACKING -->
+<section id="pay">
     <div class="money-section fade-in">
         <div class="section-label">Pay Tracking</div>
         <div class="orange-line"></div>
         <h2 class="section-title">Every dollar tracked automatically</h2>
-        <p class="section-desc">Add a jumper and every credit calculates instantly. Remove them and everything reverses. Nothing left unbalanced.</p>
+        <p class="section-desc">Add a jumper and every credit calculates instantly. Remove them and everything reverses. Nothing left unbalanced at the end of the day.</p>
         <div class="money-grid">
             <div class="money-card orange">
                 <div class="money-title">Tandem Instructor</div>
@@ -574,7 +654,7 @@
             </div>
             <div class="money-card">
                 <div class="money-title">Credit Transfers</div>
-                <div class="money-desc">Transfer credits between any two members. Full audit trail with required notes on every transaction.</div>
+                <div class="money-desc">Transfer credits between any two members with a full audit trail and required notes.</div>
             </div>
         </div>
     </div>
@@ -582,6 +662,105 @@
 
 <hr class="divider">
 
+<!-- PRICING -->
+<section id="pricing">
+    <div class="fade-in">
+        <div class="section-label">Pricing</div>
+        <div class="orange-line"></div>
+        <h2 class="section-title">Simple honest pricing</h2>
+        <p class="section-desc">One price. Everything included. Cancel anytime.</p>
+    </div>
+    <div class="pricing-grid fade-in">
+        <div class="pricing-card">
+            <div class="pricing-name">Monthly</div>
+            <div class="pricing-price"><sup>$</sup>200</div>
+            <div class="pricing-period">per month</div>
+            <div class="pricing-annual">&nbsp;</div>
+            <ul class="pricing-features">
+                <li>Full manifest system</li>
+                <li>Unlimited members and loads</li>
+                <li>All pay tracking features</li>
+                <li>Live display board</li>
+                <li>Excel reports</li>
+                <li>Automatic backups</li>
+                <li>Email support</li>
+                <li>Cancel anytime</li>
+            </ul>
+            <a href="#contact" class="btn-primary" style="display:block;text-align:center;">Get Started</a>
+        </div>
+        <div class="pricing-card featured">
+            <div class="pricing-badge">BEST VALUE — SAVE $400</div>
+            <div class="pricing-name">Annual</div>
+            <div class="pricing-price"><sup>$</sup>1,999</div>
+            <div class="pricing-period">per year</div>
+            <div class="pricing-annual">equivalent to $167/mo — save $400</div>
+            <ul class="pricing-features">
+                <li>Everything in Monthly</li>
+                <li>Priority email support</li>
+                <li>All updates included</li>
+                <li>New features as they ship</li>
+                <li>Migration help if needed</li>
+                <li>Early access to new features</li>
+                <li>Direct line for questions</li>
+                <li>Lock in current pricing</li>
+            </ul>
+            <a href="#contact" class="btn-primary" style="display:block;text-align:center;">Get Started</a>
+        </div>
+    </div>
+    <p style="text-align:center;color:var(--muted);font-size:0.85rem;margin-top:24px;">
+        Multi-DZ pricing available. <a href="#contact" style="color:var(--orange);">Contact us</a> for volume discounts.
+    </p>
+</section>
+
+<hr class="divider">
+
+<!-- FAQ -->
+<section id="faq">
+    <div class="fade-in">
+        <div class="section-label">FAQ</div>
+        <div class="orange-line"></div>
+        <h2 class="section-title">Common questions</h2>
+        <p class="section-desc">Everything you need to know before getting started.</p>
+    </div>
+    <div class="faq-list fade-in">
+        <div class="faq-item">
+            <div class="faq-question" onclick="toggleFaq(this)">Does it require internet to run? <span class="arrow">▼</span></div>
+            <div class="faq-answer"><div class="faq-answer-inner">No. LoadHog runs completely offline on your DZ computer. No internet connection is needed to manifest jumpers, track credits, or generate reports. A connection is only needed on startup to verify your license key — this takes less than a second and works on any wifi or hotspot.</div></div>
+        </div>
+        <div class="faq-item">
+            <div class="faq-question" onclick="toggleFaq(this)">What happens if the computer crashes? <span class="arrow">▼</span></div>
+            <div class="faq-answer"><div class="faq-answer-inner">Your data is saved to disk instantly after every action. LoadHog also creates automatic backups to your Documents folder every time it opens and closes. You can also manually download a backup at any time from the admin panel.</div></div>
+        </div>
+        <div class="faq-item">
+            <div class="faq-question" onclick="toggleFaq(this)">Can we use it on multiple computers? <span class="arrow">▼</span></div>
+            <div class="faq-answer"><div class="faq-answer-inner">Each license is for one computer at a time. A second monitor can display the live jumper board by opening a browser on the same computer — no extra license needed for that. Contact us if you need multi-computer access.</div></div>
+        </div>
+        <div class="faq-item">
+            <div class="faq-question" onclick="toggleFaq(this)">How does instructor pay work? <span class="arrow">▼</span></div>
+            <div class="faq-answer"><div class="faq-answer-inner">When you add a tandem or student to a load, pay is calculated and credited automatically based on the rates you configure in Settings. All credits reverse automatically if a slot is removed. Nothing is ever left unbalanced.</div></div>
+        </div>
+        <div class="faq-item">
+            <div class="faq-question" onclick="toggleFaq(this)">What jump types does it support? <span class="arrow">▼</span></div>
+            <div class="faq-answer"><div class="faq-answer-inner">LoadHog supports all common jump types — regular licensed jumpers, walk-in tandems, walk-in students, static line progressions, and AFF Cat A through H. AFF Cat A through D automatically show a dual instructor dropdown. You create your own ticket types with custom prices and instructor credit amounts.</div></div>
+        </div>
+        <div class="faq-item">
+            <div class="faq-question" onclick="toggleFaq(this)">Do we need to install Python or anything else? <span class="arrow">▼</span></div>
+            <div class="faq-answer"><div class="faq-answer-inner">No. LoadHog is a single exe file with everything bundled inside. Run the setup file and you are done. No Python, no dependencies, no configuration.</div></div>
+        </div>
+        <div class="faq-item">
+            <div class="faq-question" onclick="toggleFaq(this)">Can we cancel anytime? <span class="arrow">▼</span></div>
+            <div class="faq-answer"><div class="faq-answer-inner">Yes. Monthly plans can be cancelled anytime and your access continues until the end of your billing period. Annual plans are non-refundable but you keep access for the full year. Your data is always yours — export it anytime.</div></div>
+        </div>
+        <div class="faq-item">
+            <div class="faq-question" onclick="toggleFaq(this)">What if we get a new computer? <span class="arrow">▼</span></div>
+            <div class="faq-answer"><div class="faq-answer-inner">Contact us and we will transfer your license to the new computer. Takes a few minutes. Your data moves with you via the backup system.</div></div>
+        </div>
+    </div>
+</section>
+
+<hr class="divider">
+
+<!-- ABOUT -->
 <section id="about">
     <div class="about-grid">
         <div class="about-text fade-in">
@@ -591,7 +770,7 @@
             <p>LoadHog started with a simple problem — our club was running the manifest on paper and a spreadsheet, and instructors never quite knew what they had earned at the end of the day.</p>
             <p>After a season of manual calculations, missed credits, and lost paperwork, I built LoadHog from scratch to solve it properly. Every feature came directly from real jump day experience.</p>
             <p>The name says it all. We hog the loads so you can focus on the sky.</p>
-            <p style="color: var(--orange); font-weight: bold;">Every dollar your instructors earn is tracked automatically. Every repack is watched. Every waiver is enforced. So you can focus on the jump day — not the paperwork.</p>
+            <div class="about-highlight">Every dollar your instructors earn is tracked automatically. Every repack is watched. Every waiver is enforced. So you can focus on the jump day — not the paperwork.</div>
         </div>
         <div class="about-stats fade-in">
             <div class="about-stat">
@@ -616,145 +795,7 @@
 
 <hr class="divider">
 
-<section id="faq">
-    <div class="fade-in">
-        <div class="section-label">FAQ</div>
-        <div class="orange-line"></div>
-        <h2 class="section-title">Common questions</h2>
-        <p class="section-desc">Everything you need to know before getting started.</p>
-    </div>
-    <div class="faq-list fade-in">
-        <div class="faq-item">
-            <div class="faq-question" onclick="toggleFaq(this)">Does it require internet to run? <span class="arrow">▼</span></div>
-            <div class="faq-answer"><div class="faq-answer-inner">No. LoadHog runs completely offline on your DZ computer. No internet connection is needed to manifest jumpers, track credits, or generate reports. The only time you need internet is to download the software.</div></div>
-        </div>
-        <div class="faq-item">
-            <div class="faq-question" onclick="toggleFaq(this)">What happens if the computer crashes? <span class="arrow">▼</span></div>
-            <div class="faq-answer"><div class="faq-answer-inner">Your data is saved to disk instantly after every action. The app also creates automatic backups every time it opens and closes. You can manually download a backup at any time and save it to a USB drive.</div></div>
-        </div>
-        <div class="faq-item">
-            <div class="faq-question" onclick="toggleFaq(this)">Can we run it on multiple computers? <span class="arrow">▼</span></div>
-            <div class="faq-answer"><div class="faq-answer-inner">The app runs on one computer at a time. A second monitor can display the live jumper board by opening a browser on the same computer. The display board updates automatically every 10 seconds.</div></div>
-        </div>
-        <div class="faq-item">
-            <div class="faq-question" onclick="toggleFaq(this)">How does instructor pay work? <span class="arrow">▼</span></div>
-            <div class="faq-answer"><div class="faq-answer-inner">When you add a tandem or student to a load, pay is calculated and credited automatically based on the rates you set in Settings. All credits reverse automatically if a slot is removed. Nothing is ever left unbalanced.</div></div>
-        </div>
-        <div class="faq-item">
-            <div class="faq-question" onclick="toggleFaq(this)">What jump types does it support? <span class="arrow">▼</span></div>
-            <div class="faq-answer"><div class="faq-answer-inner">LoadHog supports all common jump types — regular licensed jumpers, walk-in tandems, walk-in students, static line progressions, and AFF Cat A through H. AFF Cat A through D automatically show a dual instructor dropdown.</div></div>
-        </div>
-        <div class="faq-item">
-            <div class="faq-question" onclick="toggleFaq(this)">Do we need to install Python or any software? <span class="arrow">▼</span></div>
-            <div class="faq-answer"><div class="faq-answer-inner">No. LoadHog comes as a single exe file with everything bundled inside. Just copy the folder to your computer and double click. No installation, no dependencies, no setup.</div></div>
-        </div>
-        <div class="faq-item">
-            <div class="faq-question" onclick="toggleFaq(this)">What if we get a new computer? <span class="arrow">▼</span></div>
-            <div class="faq-answer"><div class="faq-answer-inner">Copy the entire app folder to the new computer via USB drive — make sure to include the database file which contains all your data. Double click the exe and everything is right where you left it.</div></div>
-        </div>
-    </div>
-</section>
-
-<hr class="divider">
-
-<section id="testimonials">
-    <div class="fade-in">
-        <div class="section-label">Testimonials</div>
-        <div class="orange-line"></div>
-        <h2 class="section-title">What DZs are saying</h2>
-        <p class="section-desc">LoadHog is live in the field. More testimonials coming soon.</p>
-    </div>
-    <div class="testimonials-grid fade-in">
-        <div class="testimonial-card">
-            <div class="testimonial-text">"Finally a manifest system built by someone who actually jumps. The automatic instructor pay tracking alone saves us an hour of paperwork every jump day."</div>
-            <div class="testimonial-author">
-                <div class="testimonial-avatar">KP</div>
-                <div>
-                    <div class="testimonial-name">KSU Parachute Club</div>
-                    <div class="testimonial-role">Manhattan, Kansas</div>
-                </div>
-            </div>
-        </div>
-        <div class="testimonial-card" style="opacity:0.4;">
-            <div class="testimonial-text">"Your testimonial could be here. Get in touch to bring LoadHog to your DZ."</div>
-            <div class="testimonial-author">
-                <div class="testimonial-avatar">?</div>
-                <div>
-                    <div class="testimonial-name">Your Drop Zone</div>
-                    <div class="testimonial-role">Your Location</div>
-                </div>
-            </div>
-        </div>
-        <div class="testimonial-card" style="opacity:0.4;">
-            <div class="testimonial-text">"Your testimonial could be here. Get in touch to bring LoadHog to your DZ."</div>
-            <div class="testimonial-author">
-                <div class="testimonial-avatar">?</div>
-                <div>
-                    <div class="testimonial-name">Your Drop Zone</div>
-                    <div class="testimonial-role">Your Location</div>
-                </div>
-            </div>
-        </div>
-    </div>
-</section>
-
-<hr class="divider">
-
-<section id="pricing">
-    <div class="fade-in">
-        <div class="section-label">Pricing</div>
-        <div class="orange-line"></div>
-        <h2 class="section-title">Simple honest pricing</h2>
-        <p class="section-desc">No surprise charges. Get in touch and we will find the right option for your club.</p>
-    </div>
-    <div class="pricing-grid fade-in">
-        <div class="pricing-card">
-            <div class="pricing-name">Single DZ License</div>
-            <div class="pricing-price">Contact <span>us</span></div>
-            <div class="pricing-desc">One license for one drop zone</div>
-            <ul class="pricing-features">
-                <li>Full manifest system</li>
-                <li>Unlimited members and loads</li>
-                <li>All pay tracking features</li>
-                <li>Excel reports</li>
-                <li>Live display board</li>
-                <li>Automatic backups</li>
-                <li>Email support</li>
-            </ul>
-            <a href="#contact" class="btn-primary" style="display:block;text-align:center;">Get in Touch</a>
-        </div>
-        <div class="pricing-card featured">
-            <div class="pricing-badge">MOST POPULAR</div>
-            <div class="pricing-name">Annual Subscription</div>
-            <div class="pricing-price">Contact <span>us</span></div>
-            <div class="pricing-desc">Includes all updates and priority support</div>
-            <ul class="pricing-features">
-                <li>Everything in Single DZ</li>
-                <li>All updates included</li>
-                <li>Priority email support</li>
-                <li>New features as they ship</li>
-                <li>Migration help if needed</li>
-            </ul>
-            <a href="#contact" class="btn-primary" style="display:block;text-align:center;">Get in Touch</a>
-        </div>
-        <div class="pricing-card">
-            <div class="pricing-name">Multi-DZ</div>
-            <div class="pricing-price">Contact <span>us</span></div>
-            <div class="pricing-desc">For organizations with multiple locations</div>
-            <ul class="pricing-features">
-                <li>Multiple location licenses</li>
-                <li>Volume pricing available</li>
-                <li>Dedicated support</li>
-                <li>Custom onboarding</li>
-                <li>All features included</li>
-            </ul>
-            <a href="#contact" class="btn-primary" style="display:block;text-align:center;">Get in Touch</a>
-        </div>
-    </div>
-</section>
-
-<hr class="divider">
-
+<!-- CONTACT -->
 <section id="contact">
     <div class="fade-in">
         <div class="section-label">Contact</div>
@@ -763,95 +804,103 @@
     </div>
     <div class="contact-grid fade-in">
         <div class="contact-info">
-            <h3>Interested in LoadHog?</h3>
-            <p>Send us a message and we will get back to you within 24 hours with pricing, setup details, and answers to any questions about bringing LoadHog to your drop zone.</p>
+            <h3>Ready to bring LoadHog to your DZ?</h3>
+            <p>Send us a message and we will get back to you within 24 hours with everything you need to get started.</p>
             <div class="contact-detail">
                 <div class="contact-detail-icon">✉️</div>
-                <span>your@email.com</span>
+                <span>your@gmail.com</span>
             </div>
             <div class="contact-detail">
                 <div class="contact-detail-icon">⏱️</div>
-                <span>We typically respond within 24 hours</span>
+                <span>We respond within 24 hours</span>
             </div>
             <div class="contact-detail">
                 <div class="contact-detail-icon">🪂</div>
-                <span>Built by a skydiver who understands your DZ</span>
+                <span>Built by a skydiver who jumps at a club just like yours</span>
+            </div>
+            <div class="contact-detail">
+                <div class="contact-detail-icon">🌐</div>
+                <span>loadhogmanifest.com</span>
             </div>
         </div>
         <div class="contact-form">
             <div id="form-content">
                 <div class="form-group">
-                    <label>YOUR NAME</label>
+                    <label>Your Name</label>
                     <input type="text" id="contact-name" placeholder="Jane Smith">
                 </div>
                 <div class="form-group">
-                    <label>EMAIL ADDRESS</label>
+                    <label>Email Address</label>
                     <input type="email" id="contact-email" placeholder="jane@yourdz.com">
                 </div>
                 <div class="form-group">
-                    <label>DROP ZONE NAME</label>
+                    <label>Drop Zone Name</label>
                     <input type="text" id="contact-dz" placeholder="Your Drop Zone">
                 </div>
                 <div class="form-group">
-                    <label>HOW CAN WE HELP?</label>
+                    <label>How can we help?</label>
                     <select id="contact-subject">
                         <option value="">Select a topic</option>
-                        <option value="pricing">Pricing information</option>
+                        <option value="subscribe">I want to subscribe</option>
                         <option value="demo">Request a demo</option>
                         <option value="features">Feature questions</option>
-                        <option value="support">Technical support</option>
+                        <option value="multi">Multi-DZ pricing</option>
                         <option value="other">Something else</option>
                     </select>
                 </div>
                 <div class="form-group">
-                    <label>MESSAGE</label>
-                    <textarea id="contact-message" placeholder="Tell us about your DZ and what you're looking for..."></textarea>
+                    <label>Message</label>
+                    <textarea id="contact-message" placeholder="Tell us about your DZ..."></textarea>
                 </div>
                 <button class="form-submit" onclick="submitForm()">SEND MESSAGE</button>
             </div>
             <div class="form-success" id="form-success">
                 <div style="font-size:2rem;margin-bottom:12px;">✓</div>
-                <div style="font-size:1.1rem;font-weight:bold;margin-bottom:8px;">Message sent!</div>
-                <div style="color:var(--muted);">We will get back to you within 24 hours.</div>
+                <div style="font-size:1.1rem;font-weight:bold;color:white;margin-bottom:8px;">Message sent!</div>
+                <div>We will get back to you within 24 hours.</div>
             </div>
         </div>
     </div>
 </section>
 
+<!-- FOOTER -->
 <footer>
-    <div class="footer-grid">
-        <div>
-            <img src="logo.png" alt="LoadHog" class="footer-logo">
-            <p class="footer-desc">Complete manifest software built for parachute clubs. Load board, instructor pay, gear repacks, and reports — all in one place.</p>
+    <div class="footer-inner">
+        <div class="footer-grid">
+            <div>
+                <div class="footer-logo-text">LOAD<span>HOG</span></div>
+                <p class="footer-desc">Complete manifest software built for parachute clubs. Load board, automatic pay tracking, gear repacks, and reports — all in one place.</p>
+            </div>
+            <div class="footer-col">
+                <h4>Product</h4>
+                <ul>
+                    <li><a href="#features">Features</a></li>
+                    <li><a href="#comparison">Why LoadHog</a></li>
+                    <li><a href="#how-it-works">How It Works</a></li>
+                    <li><a href="#pricing">Pricing</a></li>
+                </ul>
+            </div>
+            <div class="footer-col">
+                <h4>Company</h4>
+                <ul>
+                    <li><a href="#about">About</a></li>
+                    <li><a href="#faq">FAQ</a></li>
+                    <li><a href="#contact">Contact</a></li>
+                    <li><a href="mailto:your@gmail.com">Email Us</a></li>
+                </ul>
+            </div>
         </div>
-        <div class="footer-col">
-            <h4>PRODUCT</h4>
-            <ul>
-                <li><a href="#features">Features</a></li>
-                <li><a href="#comparison">Why LoadHog</a></li>
-                <li><a href="#how-it-works">How It Works</a></li>
-                <li><a href="#pricing">Pricing</a></li>
-            </ul>
+        <div class="footer-bottom">
+            <p>© 2026 LoadHog. All rights reserved. Built by a skydiver for skydivers.</p>
+            <p style="color:var(--orange);">loadhogmanifest.com</p>
         </div>
-        <div class="footer-col">
-            <h4>COMPANY</h4>
-            <ul>
-                <li><a href="#about">About</a></li>
-                <li><a href="#faq">FAQ</a></li>
-                <li><a href="#testimonials">Testimonials</a></li>
-                <li><a href="#contact">Contact</a></li>
-            </ul>
-        </div>
-    </div>
-    <div class="footer-bottom">
-        <p>© 2026 LoadHog. All rights reserved. Built by a skydiver for skydivers.</p>
     </div>
 </footer>
 
 <script>
+    // Active nav
     const navLinks = document.querySelectorAll('.nav-links a');
     const sections = document.querySelectorAll('section[id]');
-
     window.addEventListener('scroll', () => {
         let current = '';
         sections.forEach(s => { if (window.scrollY >= s.offsetTop - 100) current = s.id; });
@@ -861,11 +910,13 @@
         });
     });
 
+    // Fade in
     const observer = new IntersectionObserver(entries => {
         entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('visible'); });
     }, { threshold: 0.1 });
     document.querySelectorAll('.fade-in').forEach(el => observer.observe(el));
 
+    // FAQ
     function toggleFaq(el) {
         const item = el.parentElement;
         const isOpen = item.classList.contains('open');
@@ -873,6 +924,7 @@
         if (!isOpen) item.classList.add('open');
     }
 
+    // Contact form
     function submitForm() {
         const name = document.getElementById('contact-name').value;
         const email = document.getElementById('contact-email').value;
@@ -881,7 +933,7 @@
         const message = document.getElementById('contact-message').value;
         if (!name || !email || !message) { alert('Please fill in your name, email, and message.'); return; }
         const body = `Name: ${name}\nDrop Zone: ${dz}\nTopic: ${subject}\n\nMessage:\n${message}`;
-        window.location.href = `mailto:your@email.com?subject=LoadHog Inquiry — ${dz}&body=${encodeURIComponent(body)}`;
+        window.location.href = `mailto:your@gmail.com?subject=LoadHog Inquiry — ${dz}&body=${encodeURIComponent(body)}`;
         document.getElementById('form-content').style.display = 'none';
         document.getElementById('form-success').style.display = 'block';
     }
