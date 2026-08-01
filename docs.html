@@ -1,0 +1,723 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>LoadHog — Documentation</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+
+        :root {
+            --navy: #1B2D5B;
+            --orange: #E8581A;
+            --orange-light: #f07040;
+            --dark: #0a0f1e;
+            --dark2: #111d3a;
+            --text: #eee;
+            --muted: #9BA3B5;
+        }
+
+        html { scroll-behavior: smooth; }
+
+        body {
+            background: var(--dark);
+            color: var(--text);
+            font-family: Arial, sans-serif;
+            line-height: 1.7;
+        }
+
+        nav {
+            position: fixed;
+            top: 0;
+            width: 100%;
+            background: rgba(10, 15, 30, 0.97);
+            backdrop-filter: blur(10px);
+            border-bottom: 2px solid var(--orange);
+            z-index: 1000;
+            padding: 0 40px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            height: 68px;
+        }
+
+        .nav-logo {
+            font-size: 1.4rem;
+            font-weight: bold;
+            color: white;
+            letter-spacing: 2px;
+            text-decoration: none;
+        }
+
+        .nav-logo span { color: var(--orange); }
+
+        .nav-links {
+            display: flex;
+            gap: 24px;
+            list-style: none;
+            align-items: center;
+        }
+
+        .nav-links a {
+            color: var(--muted);
+            text-decoration: none;
+            font-size: 0.9rem;
+            transition: color 0.2s;
+        }
+
+        .nav-links a:hover { color: white; }
+
+        .nav-cta {
+            background: var(--orange) !important;
+            color: white !important;
+            padding: 8px 20px;
+            border-radius: 6px;
+            font-weight: bold;
+        }
+
+        .layout {
+            display: flex;
+            padding-top: 68px;
+            min-height: 100vh;
+        }
+
+        /* SIDEBAR */
+        .sidebar {
+            width: 280px;
+            min-width: 280px;
+            background: var(--dark2);
+            border-right: 1px solid #1B2D5B;
+            padding: 32px 0;
+            position: fixed;
+            top: 68px;
+            bottom: 0;
+            overflow-y: auto;
+        }
+
+        .sidebar-section {
+            margin-bottom: 8px;
+        }
+
+        .sidebar-title {
+            color: var(--orange);
+            font-size: 0.72rem;
+            letter-spacing: 3px;
+            text-transform: uppercase;
+            padding: 12px 24px 6px;
+            font-weight: bold;
+        }
+
+        .sidebar a {
+            display: block;
+            color: var(--muted);
+            text-decoration: none;
+            font-size: 0.88rem;
+            padding: 7px 24px;
+            transition: all 0.2s;
+            border-left: 3px solid transparent;
+        }
+
+        .sidebar a:hover {
+            color: white;
+            background: rgba(27,45,91,0.3);
+            border-left-color: var(--orange);
+        }
+
+        .sidebar a.active {
+            color: white;
+            background: rgba(232,88,26,0.1);
+            border-left-color: var(--orange);
+        }
+
+        /* CONTENT */
+        .content {
+            margin-left: 280px;
+            flex: 1;
+            padding: 48px 60px;
+            max-width: 860px;
+        }
+
+        h1 {
+            font-size: 2rem;
+            color: white;
+            margin-bottom: 12px;
+        }
+
+        h2 {
+            font-size: 1.4rem;
+            color: white;
+            margin: 40px 0 12px;
+            padding-bottom: 8px;
+            border-bottom: 1px solid #1B2D5B;
+        }
+
+        h3 {
+            font-size: 1.1rem;
+            color: white;
+            margin: 24px 0 8px;
+        }
+
+        p { color: var(--muted); margin-bottom: 14px; }
+
+        .lead {
+            font-size: 1.05rem;
+            color: var(--muted);
+            margin-bottom: 32px;
+            padding-bottom: 32px;
+            border-bottom: 1px solid #1B2D5B;
+        }
+
+        ul, ol {
+            color: var(--muted);
+            padding-left: 20px;
+            margin-bottom: 14px;
+        }
+
+        li { margin-bottom: 6px; }
+
+        .info-box {
+            background: rgba(27,45,91,0.4);
+            border-left: 3px solid var(--orange);
+            border-radius: 0 6px 6px 0;
+            padding: 14px 18px;
+            margin-bottom: 16px;
+            color: var(--muted);
+            font-size: 0.9rem;
+        }
+
+        .info-box strong { color: white; }
+
+        .warning-box {
+            background: rgba(232,88,26,0.1);
+            border-left: 3px solid var(--orange);
+            border-radius: 0 6px 6px 0;
+            padding: 14px 18px;
+            margin-bottom: 16px;
+            color: var(--muted);
+            font-size: 0.9rem;
+        }
+
+        .success-box {
+            background: rgba(46,204,113,0.1);
+            border-left: 3px solid #2ecc71;
+            border-radius: 0 6px 6px 0;
+            padding: 14px 18px;
+            margin-bottom: 16px;
+            color: var(--muted);
+            font-size: 0.9rem;
+        }
+
+        code {
+            background: #1B2D5B;
+            color: #a78bfa;
+            padding: 2px 8px;
+            border-radius: 4px;
+            font-family: monospace;
+            font-size: 0.88rem;
+        }
+
+        .key-format {
+            background: #1B2D5B;
+            color: var(--orange);
+            padding: 10px 16px;
+            border-radius: 6px;
+            font-family: monospace;
+            font-size: 1.1rem;
+            letter-spacing: 3px;
+            display: inline-block;
+            margin: 8px 0;
+        }
+
+        .step-list {
+            list-style: none;
+            padding: 0;
+            counter-reset: steps;
+        }
+
+        .step-list li {
+            counter-increment: steps;
+            display: flex;
+            gap: 14px;
+            margin-bottom: 14px;
+            align-items: flex-start;
+        }
+
+        .step-list li::before {
+            content: counter(steps);
+            background: var(--orange);
+            color: white;
+            width: 26px;
+            height: 26px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 0.82rem;
+            font-weight: bold;
+            flex-shrink: 0;
+            margin-top: 2px;
+        }
+
+        .divider { border: none; border-top: 1px solid #1B2D5B; margin: 32px 0; }
+
+        .contact-box {
+            background: var(--dark2);
+            border-radius: 12px;
+            padding: 28px;
+            border: 1px solid #1B2D5B;
+            text-align: center;
+            margin-top: 40px;
+        }
+
+        .contact-box h3 { color: white; margin-bottom: 8px; }
+        .contact-box p { color: var(--muted); margin-bottom: 16px; }
+        .contact-box a {
+            color: var(--orange);
+            text-decoration: none;
+            font-size: 1.1rem;
+            border-bottom: 1px solid var(--orange);
+            padding-bottom: 2px;
+        }
+
+        @media (max-width: 768px) {
+            .sidebar { display: none; }
+            .content { margin-left: 0; padding: 24px 20px; }
+            nav { padding: 0 20px; }
+            .nav-links { display: none; }
+        }
+    </style>
+</head>
+<body>
+
+<nav>
+    <a href="index.html" class="nav-logo">LOAD<span>HOG</span></a>
+    <ul class="nav-links">
+        <li><a href="index.html#features">Features</a></li>
+        <li><a href="index.html#pricing">Pricing</a></li>
+        <li><a href="index.html#faq">FAQ</a></li>
+        <li><a href="index.html#contact" class="nav-cta">Get Started</a></li>
+    </ul>
+</nav>
+
+<div class="layout">
+    <div class="sidebar">
+        <div class="sidebar-section">
+            <div class="sidebar-title">Getting Started</div>
+            <a href="#activation">License Activation</a>
+            <a href="#installation">Installation</a>
+            <a href="#first-setup">First Time Setup</a>
+        </div>
+        <div class="sidebar-section">
+            <div class="sidebar-title">Jump Day</div>
+            <a href="#creating-loads">Creating Loads</a>
+            <a href="#adding-jumpers">Adding Jumpers</a>
+            <a href="#walk-ins">Walk-in Tandems</a>
+            <a href="#students">Students and AFF</a>
+            <a href="#statuses">Load Statuses</a>
+        </div>
+        <div class="sidebar-section">
+            <div class="sidebar-title">Pay Tracking</div>
+            <a href="#tandem-pay">Tandem Instructor Pay</a>
+            <a href="#video-pay">Outside Video Pay</a>
+            <a href="#student-pay">Student Instructor Pay</a>
+            <a href="#pilot-pay">Pilot Pay</a>
+            <a href="#packing">Packing Credits</a>
+        </div>
+        <div class="sidebar-section">
+            <div class="sidebar-title">Members</div>
+            <a href="#waivers">Waivers</a>
+            <a href="#gear">Gear and Repacks</a>
+            <a href="#dues">Club Dues</a>
+            <a href="#credits">Credit Summary</a>
+        </div>
+        <div class="sidebar-section">
+            <div class="sidebar-title">Features</div>
+            <a href="#display-board">Display Board</a>
+            <a href="#warnings">Warnings Tab</a>
+            <a href="#reports">Reports</a>
+            <a href="#backups">Backups</a>
+            <a href="#restore">Restore</a>
+        </div>
+        <div class="sidebar-section">
+            <div class="sidebar-title">Help</div>
+            <a href="#admin">Admin Access</a>
+            <a href="#problems">Common Problems</a>
+            <a href="#contact-support">Contact Support</a>
+        </div>
+    </div>
+
+    <div class="content">
+        <h1>LoadHog Documentation</h1>
+        <p class="lead">
+            Everything you need to know about running LoadHog at your drop zone.
+            If you can't find what you're looking for email us at
+            <a href="mailto:loadhogmanifest@gmail.com" style="color:var(--orange);">loadhogmanifest@gmail.com</a>
+        </p>
+
+        <!-- ACTIVATION -->
+        <section id="activation">
+            <h2>License Activation</h2>
+            <p>When you subscribe to LoadHog you will receive a license key by email. It looks like this:</p>
+            <div class="key-format">LH-XXXX-XXXX-XXXX</div>
+            <p>Enter this key the first time you open the Licensed version of LoadHog. The app will verify it and open normally. Your key is stored on your computer so you only need to enter it once.</p>
+            <div class="info-box">
+                <strong>Offline use:</strong> LoadHog works offline for up to 7 days after the last successful verification. After 7 days an internet connection is needed to verify your license.
+            </div>
+            <div class="warning-box">
+                <strong>Lost your key?</strong> Email <a href="mailto:loadhogmanifest@gmail.com" style="color:var(--orange);">loadhogmanifest@gmail.com</a> and we will resend it.
+            </div>
+        </section>
+
+        <hr class="divider">
+
+        <!-- INSTALLATION -->
+        <section id="installation">
+            <h2>Installation</h2>
+            <ol class="step-list">
+                <li>Download the LoadHog folder from the link in your welcome email</li>
+                <li>Copy the folder to your DZ computer — anywhere works, Program Files, Desktop, Documents</li>
+                <li>Open the folder and double click <code>setup.bat</code></li>
+                <li>A LoadHog shortcut appears on your desktop with the icon</li>
+                <li>The folder hides itself automatically</li>
+                <li>Double click the desktop shortcut to open LoadHog</li>
+            </ol>
+            <div class="success-box">
+                <strong>No installation wizard needed.</strong> LoadHog is a single exe file with everything bundled inside. No Python, no dependencies, no admin rights required.
+            </div>
+        </section>
+
+        <hr class="divider">
+
+        <!-- FIRST SETUP -->
+        <section id="first-setup">
+            <h2>First Time Setup</h2>
+            <p>Takes about 15 minutes. Do this before your first jump day.</p>
+            <ol class="step-list">
+                <li>Click <strong>Admin</strong> in the top right — default PIN is <code>1234</code></li>
+                <li>Go to <strong>Settings</strong> — change your club name, color, and admin PIN</li>
+                <li>Go to <strong>Pilots</strong> — add your pilots and set their credit per load rate</li>
+                <li>Go to <strong>Aircraft</strong> — confirm your aircraft and capacity</li>
+                <li>Go to <strong>Ticket Types</strong> — set your ticket prices and instructor credit amounts</li>
+                <li>Go to <strong>Club Gear</strong> — add your tandem and student rigs</li>
+                <li>Go to <strong>Members</strong> — add your members with gear and waivers</li>
+            </ol>
+        </section>
+
+        <hr class="divider">
+
+        <!-- CREATING LOADS -->
+        <section id="creating-loads">
+            <h2>Creating Loads</h2>
+            <ol class="step-list">
+                <li>Click <strong>Loads</strong> in the navigation bar</li>
+                <li>Click <strong>+ New Load</strong> — the default aircraft is pre-selected</li>
+                <li>Assign a pilot from the dropdown and click <strong>Set</strong></li>
+                <li>The pilot is automatically credited their per-load rate</li>
+            </ol>
+            <div class="warning-box">You cannot add jumpers until a pilot is assigned.</div>
+        </section>
+
+        <hr class="divider">
+
+        <!-- ADDING JUMPERS -->
+        <section id="adding-jumpers">
+            <h2>Adding Jumpers</h2>
+            <ol class="step-list">
+                <li>Type the jumper's name in the search box</li>
+                <li>Click their name in the dropdown</li>
+                <li>Select their ticket type</li>
+                <li>Click <strong>+ Add</strong></li>
+            </ol>
+            <p>Their account is debited automatically. Common errors:</p>
+            <ul>
+                <li><strong>No waiver on file</strong> — log a waiver on their profile first</li>
+                <li><strong>No pilot assigned</strong> — assign a pilot to the load first</li>
+                <li><strong>Load full</strong> — plane is at capacity</li>
+                <li><strong>Gear overdue</strong> — all rigs need a repack</li>
+            </ul>
+        </section>
+
+        <hr class="divider">
+
+        <!-- WALK-INS -->
+        <section id="walk-ins">
+            <h2>Walk-in Tandems and Students</h2>
+            <ol class="step-list">
+                <li>Use the <strong>Quick Add Walk-in</strong> box at the top of the Loads page</li>
+                <li>Enter their name and select Walk-in Tandem or Walk-in Student</li>
+                <li>Click <strong>Create Walk-in</strong></li>
+                <li>Find them in the member search on the load</li>
+                <li>Select their ticket, instructor, rig, and video options</li>
+                <li>Click <strong>+ Add</strong></li>
+            </ol>
+            <div class="info-box">
+                Walk-in tandems take 2 slots automatically. Outside videographers are auto-added to the load when selected.
+            </div>
+        </section>
+
+        <hr class="divider">
+
+        <!-- STUDENTS AND AFF -->
+        <section id="students">
+            <h2>Students and AFF</h2>
+            <h3>Static Line</h3>
+            <p>Add students the same way as regular jumpers. Select their static line ticket type and choose an instructor. The instructor earns the credit set on that ticket type.</p>
+
+            <h3>AFF Categories</h3>
+            <p>Name your AFF ticket types exactly like this:</p>
+            <ul>
+                <li><code>AFF Cat A</code> through <code>AFF Cat H</code></li>
+            </ul>
+            <div class="info-box">
+                <strong>Cat A through D</strong> automatically show a secondary instructor dropdown — both instructors earn the full credit amount.<br><br>
+                <strong>Cat E through H</strong> show only one instructor dropdown.
+            </div>
+        </section>
+
+        <hr class="divider">
+
+        <!-- LOAD STATUSES -->
+        <section id="statuses">
+            <h2>Load Statuses</h2>
+            <ul>
+                <li><strong>Building</strong> — adding jumpers to the load</li>
+                <li><strong>Boarding</strong> — jumpers are boarding the aircraft</li>
+                <li><strong>In Air</strong> — plane has taken off</li>
+                <li><strong>Landed</strong> — plane has landed</li>
+                <li><strong>Closed</strong> — load is complete and saved to history</li>
+            </ul>
+            <p>Click the status buttons on the load card to move through each stage. Closed loads disappear from the active board but are saved permanently in history.</p>
+        </section>
+
+        <hr class="divider">
+
+        <!-- TANDEM PAY -->
+        <section id="tandem-pay">
+            <h2>Tandem Instructor Pay</h2>
+            <p>Calculated automatically when a tandem is added to a load:</p>
+            <ul>
+                <li><strong>Base Pay</strong> — always earned, set in Settings</li>
+                <li><strong>Personal Rig Bonus</strong> — if instructor uses their own rig</li>
+                <li><strong>Inside Club Camera Bonus</strong> — if using club camera</li>
+                <li><strong>Inside Personal Camera Bonus</strong> — if using own camera</li>
+            </ul>
+            <p>All rates are configurable in Admin → Settings → Tandem Pay Rates.</p>
+        </section>
+
+        <hr class="divider">
+
+        <!-- VIDEO PAY -->
+        <section id="video-pay">
+            <h2>Outside Video Pay</h2>
+            <ul>
+                <li><strong>Base Pay</strong> — always earned for outside video</li>
+                <li><strong>Club Camera Bonus</strong> — if using club camera</li>
+                <li><strong>Personal Camera Bonus</strong> — if using own camera</li>
+            </ul>
+            <div class="info-box">
+                Only members with a <strong>Videographer rating</strong> on their profile appear in the videographer dropdown. Add ratings in Admin → Members → View → Add Rating.
+            </div>
+        </section>
+
+        <hr class="divider">
+
+        <!-- STUDENT PAY -->
+        <section id="student-pay">
+            <h2>Student Instructor Pay</h2>
+            <p>Set the Instructor Credit amount on each ticket type in Admin → Ticket Types → Edit. This amount is credited to the instructor automatically when a student is manifested.</p>
+            <p>One instructor can take multiple students on the same load and earns credit for each one. AFF Cat A through D support dual instructors who each earn the full credit.</p>
+        </section>
+
+        <hr class="divider">
+
+        <!-- PILOT PAY -->
+        <section id="pilot-pay">
+            <h2>Pilot Pay</h2>
+            <p>Each pilot has their own Credit Per Load rate set on their profile in Admin → Pilots. The credit is applied automatically when a pilot is assigned to a load and reversed if they are changed.</p>
+        </section>
+
+        <hr class="divider">
+
+        <!-- PACKING -->
+        <section id="packing">
+            <h2>Packing Credits</h2>
+            <p>Log packing credits from Admin → Members → View → Packing Credits. Select Regular Pack or Tandem Pack — the rate is pulled from Settings automatically.</p>
+        </section>
+
+        <hr class="divider">
+
+        <!-- WAIVERS -->
+        <section id="waivers">
+            <h2>Waivers</h2>
+            <p>Every regular member and student needs a current waiver to be manifested. Log waivers from Admin → Members → View → Safety Waiver. The Warnings tab shows everyone with an expired waiver.</p>
+        </section>
+
+        <hr class="divider">
+
+        <!-- GEAR -->
+        <section id="gear">
+            <h2>Gear and Repacks</h2>
+            <p>Reserves must be repacked every 180 days. Track repacks from Admin → Members → View → Edit on any rig. The repack due date calculates automatically.</p>
+            <ul>
+                <li><strong>Red warning</strong> — all rigs overdue, cannot manifest</li>
+                <li><strong>Orange warning</strong> — mixed status, at least one current rig</li>
+            </ul>
+            <p>Club gear is tracked separately in Admin → Club Gear.</p>
+        </section>
+
+        <hr class="divider">
+
+        <!-- DUES -->
+        <section id="dues">
+            <h2>Club Dues</h2>
+            <p>Log dues payments from Admin → Members → View → Dues. The amount is deducted from their balance automatically. The Warnings tab shows all members with unpaid dues for the current season.</p>
+        </section>
+
+        <hr class="divider">
+
+        <!-- CREDITS -->
+        <section id="credits">
+            <h2>Credit Summary</h2>
+            <p>View any member's credit summary from Admin → Members → View. Use the date range pickers to filter by period. Click Download Credit Summary to export a formatted Excel file with category breakdown and running balance.</p>
+        </section>
+
+        <hr class="divider">
+
+        <!-- DISPLAY BOARD -->
+        <section id="display-board">
+            <h2>Display Board</h2>
+            <p>Click <strong>Display Board</strong> in the navigation bar to open a live read-only jumper board in your browser. Drag it to a second monitor and press F11 for full screen.</p>
+            <p>The display board updates silently every 10 seconds. Jumpers can see which load they are on without coming to the manifest desk.</p>
+            <p>You can also open it directly in any browser on the same computer:</p>
+            <code>http://localhost:5000/display</code>
+        </section>
+
+        <hr class="divider">
+
+        <!-- WARNINGS -->
+        <section id="warnings">
+            <h2>Warnings Tab</h2>
+            <p>The Warnings tab is visible without logging into admin. It shows:</p>
+            <ul>
+                <li>Members with expired waivers</li>
+                <li>Members with all rigs overdue — cannot manifest</li>
+                <li>Members with mixed gear status</li>
+                <li>Club gear due for repack within 30 days</li>
+                <li>Members with unpaid dues</li>
+            </ul>
+        </section>
+
+        <hr class="divider">
+
+        <!-- REPORTS -->
+        <section id="reports">
+            <h2>Reports</h2>
+            <p>Admin → Reports. Set a date range and click Apply. Download a formatted Excel report with 7 sheets covering monthly jumps, instructor earnings, pilot activity, gear status, aircraft stats, and dues.</p>
+        </section>
+
+        <hr class="divider">
+
+        <!-- BACKUPS -->
+        <section id="backups">
+            <h2>Backups</h2>
+            <p>LoadHog backs up your database automatically every time the app opens and closes. Backups are saved to:</p>
+            <code>Documents\LoadHog Backups</code>
+            <p style="margin-top:12px;">The app keeps the last 30 daily backups and 60 close backups. Manual backups can be downloaded anytime from Admin → Backup.</p>
+            <div class="info-box">
+                On OneDrive computers backups save to <code>OneDrive\Documents\LoadHog Backups</code>. On non-OneDrive computers they save to <code>Documents\LoadHog Backups</code>.
+            </div>
+        </section>
+
+        <hr class="divider">
+
+        <!-- RESTORE -->
+        <section id="restore">
+            <h2>Restoring From a Backup</h2>
+            <ol class="step-list">
+                <li>Go to Admin → Restore Backup</li>
+                <li>Click Restore next to any listed backup</li>
+                <li>Or upload a backup file from anywhere on your computer</li>
+                <li>Close and reopen the app after restoring</li>
+            </ol>
+            <div class="success-box">Your current database is automatically backed up before any restore so you can always undo it.</div>
+        </section>
+
+        <hr class="divider">
+
+        <!-- ADMIN -->
+        <section id="admin">
+            <h2>Admin Access</h2>
+            <p>Click Admin in the top right and enter your PIN. Default PIN is <code>1234</code> — change it immediately in Settings.</p>
+            <div class="warning-box">
+                <strong>Forgot your PIN?</strong> Press <code>Ctrl + Alt + O</code> anywhere in the app window to bypass the PIN and log in immediately. Write this down and keep it somewhere safe.
+            </div>
+        </section>
+
+        <hr class="divider">
+
+        <!-- PROBLEMS -->
+        <section id="problems">
+            <h2>Common Problems</h2>
+
+            <h3>App won't open</h3>
+            <p>Make sure the entire LoadHog folder was copied — not just the exe. The templates folder must be present.</p>
+
+            <h3>Forgot admin PIN</h3>
+            <p>Press <code>Ctrl + Alt + O</code> in the app window.</p>
+
+            <h3>Member can't be manifested — no waiver</h3>
+            <p>Log a waiver on their profile first. Admin → Members → View → Safety Waiver.</p>
+
+            <h3>Member can't be manifested — gear overdue</h3>
+            <p>All of their rigs have expired repacks. Update at least one repack date.</p>
+
+            <h3>Instructor didn't get credit</h3>
+            <p>Check that the Instructor Credit on the ticket type is not 0.00. Admin → Ticket Types → Edit.</p>
+
+            <h3>Videographer not in dropdown</h3>
+            <p>Add a Videographer rating to their member profile. Admin → Members → View → Add Rating.</p>
+
+            <h3>Backups not in Documents</h3>
+            <p>Look in <code>C:\Users\username\Documents\LoadHog Backups</code> — not in OneDrive Documents as they may be different folders.</p>
+
+            <h3>Display board shows OFFLINE</h3>
+            <p>Make sure the LoadHog app is still running. Reopen it and the display board will reconnect.</p>
+        </section>
+
+        <hr class="divider">
+
+        <!-- CONTACT -->
+        <section id="contact-support">
+            <div class="contact-box">
+                <h3>Need more help?</h3>
+                <p>We typically respond within 24 hours.</p>
+                <a href="mailto:loadhogmanifest@gmail.com">loadhogmanifest@gmail.com</a>
+                <br><br>
+                <p style="font-size:0.85rem;margin-top:8px;">
+                    <a href="index.html" style="color:var(--muted);text-decoration:none;">← Back to loadhogmanifest.com</a>
+                </p>
+            </div>
+        </section>
+
+    </div>
+</div>
+
+<script>
+    // Highlight active sidebar link on scroll
+    const sections = document.querySelectorAll('section[id]');
+    const sidebarLinks = document.querySelectorAll('.sidebar a');
+
+    window.addEventListener('scroll', () => {
+        let current = '';
+        sections.forEach(s => {
+            if (window.scrollY >= s.offsetTop - 100) current = s.id;
+        });
+        sidebarLinks.forEach(a => {
+            a.classList.remove('active');
+            if (a.getAttribute('href') === '#' + current) a.classList.add('active');
+        });
+    });
+</script>
+
+</body>
+</html>
