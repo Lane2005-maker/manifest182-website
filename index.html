@@ -851,6 +851,35 @@
             </div>
         </div>
     </div>
+
+    <!-- SUGGESTIONS BOX -->
+    <div style="margin-top: 48px;" class="fade-in">
+        <div class="section-label">Suggestions</div>
+        <div class="orange-line"></div>
+        <h3 style="color:white;font-size:1.3rem;margin-bottom:12px;">Got an idea?</h3>
+        <p style="color:var(--muted);margin-bottom:24px;font-size:0.95rem;">
+            We build features based on what DZs actually need.
+            Send us your suggestions and we will consider them for future updates.
+        </p>
+        <div class="contact-form">
+            <div id="suggestion-content">
+                <div class="form-group">
+                    <label>Your Name</label>
+                    <input type="text" id="suggestion-name" placeholder="Jane Smith">
+                </div>
+                <div class="form-group">
+                    <label>Your Suggestion</label>
+                    <textarea id="suggestion-message" placeholder="I would love to see..." style="min-height:140px;"></textarea>
+                </div>
+                <button class="form-submit" onclick="submitSuggestion()">SEND SUGGESTION</button>
+            </div>
+            <div class="form-success" id="suggestion-success">
+                <div style="font-size:2rem;margin-bottom:12px;">✓</div>
+                <div style="font-size:1.1rem;font-weight:bold;color:white;margin-bottom:8px;">Thanks for the suggestion!</div>
+                <div>We read every one.</div>
+            </div>
+        </div>
+    </div>
 </section>
 
 <!-- FOOTER -->
@@ -923,6 +952,16 @@
         window.location.href = `mailto:your@gmail.com?subject=LoadHog Inquiry — ${dz}&body=${encodeURIComponent(body)}`;
         document.getElementById('form-content').style.display = 'none';
         document.getElementById('form-success').style.display = 'block';
+    }
+
+    function submitSuggestion() {
+        const name = document.getElementById('suggestion-name').value;
+        const message = document.getElementById('suggestion-message').value;
+        if (!name || !message) { alert('Please fill in your name and suggestion.'); return; }
+        const body = `Suggestion from: ${name}\n\n${message}`;
+        window.location.href = `mailto:loadhogmanifest@gmail.com?subject=LoadHog Suggestion from ${name}&body=${encodeURIComponent(body)}`;
+        document.getElementById('suggestion-content').style.display = 'none';
+        document.getElementById('suggestion-success').style.display = 'block';
     }
 </script>
 
